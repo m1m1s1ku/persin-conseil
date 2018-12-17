@@ -182,7 +182,7 @@ class PersinApp extends LitElement {
 							</div>
 							<div>
 								<iron-icon icon="home"></iron-icon>
-								<span>38 quai Georges Gorse, 92100 Boulogne-Billancourt</span>
+								<a href="https://www.google.com/maps/place/38+Quai+Georges+Gorse,+92100+Boulogne-Billancourt/data=!4m2!3m1!1s0x47e67af13b2927a9:0x172eee5c2e77cf44?ved=2ahUKEwi1l_3996XfAhVKbBoKHZqIA5UQ8gEwAHoECAAQAQ">38 quai Georges Gorse, 92100 Boulogne-Billancourt</a>
 							</div>
 						</div>
 					</div>
