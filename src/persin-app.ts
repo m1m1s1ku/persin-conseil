@@ -268,6 +268,9 @@ class PersinApp extends LitElement {
 
 		if(fromBurger){
 			this._toggleMobilePopover();
+		} else {
+			this.mobileMenu.classList.remove('visible');
+			this.mobileMenu.classList.add('hidden');
 		}
 	}
 
@@ -333,7 +336,7 @@ class PersinApp extends LitElement {
 	}
 
 	private _toggleMobilePopover(){
-		const mobilePopover = this.shadowRoot.querySelector('#mobileMenu') as HTMLDivElement;
+		const mobilePopover = this.mobileMenu;
 		if(window.innerWidth > 700){
 			mobilePopover.classList.add('hidden');
 			mobilePopover.classList.remove('visible');
@@ -347,6 +350,10 @@ class PersinApp extends LitElement {
 			mobilePopover.classList.add('hidden');
 			mobilePopover.classList.remove('visible');
 		}
+	}
+
+	private get mobileMenu(): HTMLDivElement {
+		return this.shadowRoot.querySelector('#mobileMenu');
 	}
 }
 
