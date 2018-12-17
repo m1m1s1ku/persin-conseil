@@ -317,11 +317,12 @@ class PersinApp extends LitElement {
 			formData.append('email', email.value);
 			formData.append('message', message.value);
 
-			if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+			// @tool: uncomment to disable mail sending
+			// if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
 
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyyZ828biwhdAWuFE4aLsScOVgpfr3G13dH0og9ww/exec');
+			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
 			xhr.onreadystatechange = () => {
 				if (xhr.status === 200) {
 					form.classList.add('sended');
