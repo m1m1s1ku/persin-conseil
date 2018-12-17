@@ -28,11 +28,6 @@ class PersinApp extends LitElement {
 	@property({type: String})
 	private imageFormat: string;
 
-	constructor(){
-		super();
-		this.imageFormat = 'jpg';
-	}
-
 	connectedCallback(){
 		super.connectedCallback();
 		supportsWebp().then((supports) => {
