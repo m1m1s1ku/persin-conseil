@@ -27,7 +27,7 @@ const styles = html`
     paper-input, paper-textarea { --paper-input-container-focus-color: ${PERSIN_GREEN}}
     paper-dialog { overflow-y: scroll }
     picture {pointer-events: none }
-    
+    section { position: relative; width: 100%; height: 100% }
     .app {
       text-align: center;
       font-family: 'IBM Plex Sans', sans-serif;
@@ -135,10 +135,8 @@ const styles = html`
       Effects 
     */
     .parallax {
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
       background-size: cover;
+      background-position: center center;
     }
     
     /* 
@@ -334,6 +332,18 @@ const styles = html`
       .app-header .menu.desktop-menu { display: flex }
       .app-header .menu.mobile-menu { display: none }
       .app-header .mobile-popover { pointer-events: none }
+    }
+
+    @supports (-webkit-overflow-scrolling: touch) {
+      .parallax {
+        background-attachment: auto;
+      }
+    }
+
+    @supports not (-webkit-overflow-scrolling: touch) {
+      .parallax {
+        background-attachment: fixed;
+      }
     }
   </style>
 ` as any;
