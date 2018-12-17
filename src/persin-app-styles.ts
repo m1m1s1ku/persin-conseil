@@ -85,6 +85,7 @@ const styles = html`
     .app-header .desktop-menu nav ul li a {
       color: white;
       padding: 0 10px;
+      outline: none;
       text-decoration: none;
     }
 
@@ -121,6 +122,7 @@ const styles = html`
     .app-header .mobile-popover nav ul li a {
       color: white;
       text-decoration: none;
+      outline: none;
     }
 
     .app-header .mobile-popover nav ul {
@@ -291,6 +293,10 @@ const styles = html`
     footer iron-icon.social {
       color: white;
       margin: 0 .5em;
+    }
+
+    .legal-dialog {
+      margin-top: 80px;
     }
 
     .mentions { cursor: pointer; }

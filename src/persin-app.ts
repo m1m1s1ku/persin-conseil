@@ -96,12 +96,12 @@ class PersinApp extends LitElement {
 					</div>
 				</header>
 
-				<div id="home" class="home header section parallax ${this.imageFormat}" @mouseover="${this._onScroll}">
+				<div id="home" class="home header section parallax ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<h3>Persin Conseil</h3>
 					<p>Conseil & Services</p>
 				</div>
 
-				<div class="home section text-content no-background" @mouseover="${this._onScroll}">
+				<div class="home section text-content no-background" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
 					<h3>Notre valeur ajoutée ?</h3>
 					<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
@@ -110,7 +110,7 @@ class PersinApp extends LitElement {
 					<h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
 				</div>
 
-				<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @mouseover="${this._onScroll}">
+				<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<h2>Conseil</h2>
 					<p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
 					<p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
@@ -118,7 +118,7 @@ class PersinApp extends LitElement {
 					<p class="start">Bénéficiez de formations personnalisées pour vos employés aux techniques bureautiques et informatiques pour un profit technique et temporel optimal. </p>
 					<p>Votre activité se développe, vos besoins aussi. Nos conseils sont évolutifs et vous accompagneront tout au long de la vie de votre entreprise. N'hésitez pas à prendre contact avec notre service commercial afin d'obtenir des compléments d'informations.</p>
 				</div>
-				<div id="installation" class="installation section text-content no-background with-picture" @mouseover="${this._onScroll}">
+				<div id="installation" class="installation section text-content no-background with-picture" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<div>
 						<picture>
 							<source srcset="assets/installation.webp" type="image/webp">
@@ -133,7 +133,7 @@ class PersinApp extends LitElement {
 						<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
 					</div>
 				</div>
-				<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}">
+				<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<h2>Formation</h2>
 					<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaire, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
 					<p>Nous offrons des formations informatique à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
@@ -141,7 +141,7 @@ class PersinApp extends LitElement {
 					<p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
 					<p class="start">Consultez-nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
 				</div>
-				<div id="assistance" class="assistance section text-content no-background" @mouseover="${this._onScroll}">
+				<div id="assistance" class="assistance section text-content no-background" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<div class="with-picture">
 						<div>
 							<picture>
@@ -163,7 +163,7 @@ class PersinApp extends LitElement {
 						<p>Ainsi, nous résolvons avec rapidité et efficacité, l'ensemble de vos problématiques.</p>
 					</div>
 				</div>
-				<div id="contact" class="contact section parallax grid ${this.imageFormat}" @mouseover="${this._onScroll}">
+				<div id="contact" class="contact section parallax grid ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 					<div>
 						<div class="logotype">
 							<picture>
@@ -204,7 +204,7 @@ class PersinApp extends LitElement {
 
 					</div>
 				</div>
-				<footer class="grid">
+				<footer class="grid" @click="${this._hideMobileMenu}">
 					<div class="social-container">
 						<iron-iconset-svg name="inline" size="24">
 							<svg id="facebook" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.408.593 24 1.324 24h11.494v-9.294H9.689v-3.621h3.129V8.41c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.097 2.796.141v3.24h-1.921c-1.5 0-1.792.721-1.792 1.771v2.311h3.584l-.465 3.63H16.56V24h6.115c.733 0 1.325-.592 1.325-1.324V1.324C24 .593 23.408 0 22.676 0"/></svg>
@@ -227,7 +227,7 @@ class PersinApp extends LitElement {
 				</footer>
 			</div>
 
-			<paper-dialog id="legal" with-backdrop>
+			<paper-dialog id="legal" class="legal-dialog" with-backdrop>
 				<h2>Mentions légales</h2>
 				<p>
 					Thibaut MATIAS 
@@ -269,8 +269,7 @@ class PersinApp extends LitElement {
 		if(fromBurger){
 			this._toggleMobilePopover();
 		} else {
-			this.mobileMenu.classList.remove('visible');
-			this.mobileMenu.classList.add('hidden');
+			this._hideMobileMenu();
 		}
 	}
 
@@ -350,6 +349,11 @@ class PersinApp extends LitElement {
 			mobilePopover.classList.add('hidden');
 			mobilePopover.classList.remove('visible');
 		}
+	}
+
+	private _hideMobileMenu(){
+		this.mobileMenu.classList.remove('visible');
+		this.mobileMenu.classList.add('hidden');
 	}
 
 	private get mobileMenu(): HTMLDivElement {
