@@ -196,7 +196,7 @@ class PersinApp extends LitElement {
 						</div>
 						` : html`
 						<div class="contact-form">
-							Merci de nous contacter par e-mail, la connexion internet n'est pas disponible.
+							Merci de nous contacter par téléphone, la connexion internet n'est pas disponible.
 						</div>
 						`}
 
