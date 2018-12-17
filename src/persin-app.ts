@@ -1,6 +1,7 @@
 import { LitElement, html, property } from '@polymer/lit-element';
 import { supportsWebp } from './images';
 import styles from './persin-app-styles';
+import * as zenscroll from 'zenscroll';
 
 import { PaperButtonElement } from '@polymer/paper-button/paper-button';
 import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog';
@@ -20,7 +21,6 @@ if(location.host.indexOf('localhost') === -1){
 	const OfflinePluginRuntime = require('offline-plugin/runtime');
 	OfflinePluginRuntime.install();
 } 
-
 class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
@@ -255,9 +255,11 @@ class PersinApp extends LitElement {
 	}
 
 	private _scrollTo(element: HTMLElement) {
-		element.scrollIntoView({
+		/*element.scrollIntoView({
 			behavior: 'smooth'
-		});
+		});*/
+		zenscroll.intoView(element);
+
 	}
 
 	private _onNavClick(link: {class: string}): void {
