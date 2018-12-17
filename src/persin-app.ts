@@ -28,11 +28,27 @@ class PersinApp extends LitElement {
 	@property({type: String})
 	private imageFormat: string;
 
+	@property({type: Object})
+	private isOnline: boolean;
+
+	constructor(){
+		super();
+		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
+	}
+
 	connectedCallback(){
 		super.connectedCallback();
 		supportsWebp().then((supports) => {
 			if(supports) this.imageFormat = 'webp';
-		})
+		});
+		this.isOnline = navigator.onLine;
+		window.addEventListener('online',  this._onOnlineStatusChange);
+		window.addEventListener('offline', this._onOnlineStatusChange);
+	}
+
+	disconnectedCallback(){
+		window.removeEventListener('online',  this._onOnlineStatusChange);
+		window.removeEventListener('offline', this._onOnlineStatusChange);
 	}
 
 	public render() {
@@ -148,7 +164,6 @@ class PersinApp extends LitElement {
 				<div id="contact" class="contact section parallax grid ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<div>
 						<div class="logotype">
-
 							<picture>
 								<source srcset="assets/persin.webp" type="image/webp">
 								<source srcset="assets/persin.jpg" type="image/jpeg"> 
@@ -172,12 +187,19 @@ class PersinApp extends LitElement {
 						</div>
 					</div>
 					<div>
+						${this.isOnline ? html`
 						<div class="contact-form" id="contactForm">
 							<paper-input id="nom" type="text" label="Nom" name="nom" min-length="4" required></paper-input>
 							<paper-input id="email" type="email" label="E-mail" name="email" min-length="4" required></paper-input>
 							<paper-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter required></paper-textarea>
 							<paper-button type="submit" @click="${this._doSendEmail}">Envoyer</paper-button>
 						</div>
+						` : html`
+						<div class="contact-form">
+							Merci de nous contacter par e-mail, la connexion internet n'est pas disponible.
+						</div>
+						`}
+
 					</div>
 				</div>
 				<footer class="grid">
@@ -220,6 +242,14 @@ class PersinApp extends LitElement {
 				</p>
 			</paper-dialog>
 		`;
+	}
+
+	private _onOnlineStatusChange(event: Event){
+		if(event.type === 'offline'){
+			this.isOnline = false;
+		} else {
+			this.isOnline = true;
+		}
 	}
 
 	private _onNavClick(link: {class: string}): void {
@@ -273,9 +303,13 @@ class PersinApp extends LitElement {
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyAnH8k_6ZYV1YieeZCfk9VTCFnJ2yv_SnJWjT5cqFd5d3d4fZc/exec');
+			xhr.onreadystatechange = () => {
+				if (xhr.status === 200) {
+					form.classList.add('sended');
+				}
+			};
 			xhr.send(formData);
 
-			form.classList.add('sended');
 		}
 	}
 
