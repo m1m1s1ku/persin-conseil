@@ -1,0 +1,314 @@
+import { html } from '@polymer/lit-element';
+
+const PERSIN_GREEN = '#42BB74';
+const PERSIN_DARK_GREEN = '#39AB68';
+
+const styles = html`
+  <style>
+    .app {
+      text-align: center;
+      font-family: sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .app-header {
+      position: fixed;
+      width: 100%;
+      background-color: ${PERSIN_GREEN};
+      color: white;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .app-header h1 {
+      font-size: 1.1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 0 40px;
+      margin: 0;
+      margin-top: 2px;
+      font-family: 'PT Sans', sans-serif;
+    }
+
+    .app-header .menu.desktop-menu {
+      display: none;
+    }
+
+    .app-header .menu.mobile-menu {
+      display: block;
+    }
+
+    .app-header .desktop-menu nav {
+      padding-right: 30px;
+    }
+
+    .app-header .desktop-menu nav ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .app-header .desktop-menu nav ul li {
+      display: inline-block;
+      padding: 15px 0;
+      list-style: none;
+      transition: background-color .3s;
+    }
+
+    .app-header .desktop-menu nav ul li a {
+      color: white;
+      padding: 0 10px;
+      text-decoration: none;
+    }
+
+    .app-header .desktop-menu nav ul li a iron-icon {
+      margin-top: -6px;
+    }
+
+    .app-header .desktop-menu nav ul li:hover, .app-header nav ul li.active {
+      background-color: ${PERSIN_DARK_GREEN};
+    }
+
+    .app-header .mobile-popover {
+      display: block;
+      position: absolute;
+      margin-top: 85px;
+      right: 0;
+    }
+
+    .app-header .mobile-popover nav ul li {
+      list-style: none;
+    }
+
+    .app-header .mobile-popover nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .app-header .mobile-popover nav ul {
+      background-color: ${PERSIN_GREEN};
+      margin: 0;
+      padding: .5em;
+    }
+
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .header {
+      padding-top: 40px;
+    }
+
+    .header h3 {
+      font-size: 2em;
+      padding-top: 1em;
+    }
+
+    .header p {
+      padding-top: .3em;
+    }
+
+    .header h3, .header p {
+      margin: 0;
+      color: white;
+      text-shadow: 2px 2px 3px rgba(0,0,0,.6);
+    }
+
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5em;
+      font-size: 1.2em;
+    }
+
+    .section.text-content h2 {
+      align-self: flex-start;
+      color: ${PERSIN_GREEN}
+    }
+
+    .section.text-content.white p {
+      color: white;
+    }
+    
+    .text-content.no-background {
+      background-color: white;
+    }
+
+    .with-picture > div {
+      margin: .5em;
+    }
+
+    .text-content p, .text-content h3 {
+      text-align: justify;
+    }
+
+    .contact.grid {
+      padding: 5em;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .contact.grid > div {
+      display: flex;
+      flex-direction: column;
+      color: white;
+      justify-content: center;
+      font-size: 1.2em;
+      flex: 1 0 5em;
+    }
+
+    .contact.grid > div a {
+      text-decoration: none;
+      color: white;
+      transition: color .3s;
+    }
+
+    .contact.grid > div a:hover {
+      color: #CCC;
+    }
+
+    .contact.grid .logotype {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      margin: 2.5em;
+    }
+
+    .contact.grid .logotype h4 {
+      margin-left: 10px;
+    }
+
+    .contact-form:after {
+      content: 'Le mail a été envoyé avec succès !';
+      opacity: 0;
+      transition: opacity .3s;
+      position: absolute;
+      color: black;
+      display: flex;
+      align-self: center;
+      margin-top: 100px;
+    }
+
+    .contact-form.sended:after {
+      opacity: 1;
+    }
+
+    .contact.grid paper-input, 
+    .contact.grid paper-textarea,  
+    .contact.grid paper-button {
+      background-color: rgba(255, 255, 255, .8);
+      text-align: left;
+      padding: .5em;
+      border-radius: 2px;
+    }
+
+    paper-input, paper-textarea {
+      --paper-input-container-focus-color: ${PERSIN_GREEN};
+    }
+    
+    .contact.grid paper-button {
+      margin-top: 1em;
+      color: black;
+      align-self: flex-end;
+    }
+
+    .contact .contact-form {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0;
+    }
+
+    footer {
+      height: 125px;
+    }
+
+    footer.grid {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+    }
+
+    footer.grid > div {
+      display: flex;
+      align-items: center;
+    }
+
+    footer.grid > div.copyright, footer.grid > div.copyright a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer.grid > div.copyright span {
+      margin: 0 2px;
+    }
+
+    footer.grid > div.social-container {
+      justify-content: center;
+    }
+
+    footer iron-icon.social {
+      color: white;
+      margin: 0 .5em;
+    }
+
+    .with-picture {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .start {
+      align-self: flex-start;
+    }
+
+    .retreat {
+      max-width: 30em;
+    }
+
+    .mentions {
+      cursor: pointer;
+    }
+
+    paper-dialog {
+      overflow-y: scroll;
+    }
+
+    @media (max-width: 400px){
+      .contact.grid .logotype {
+        margin: 0;
+      }
+      .text-content {
+        display: block;
+      }
+    }
+
+    @media (min-width: 400px){
+      footer.grid {
+        flex-direction: row;
+      }
+    }
+
+    @media(min-width: 700px){
+      .with-picture {
+        flex-direction: row;
+      }
+
+      .app-header .menu.desktop-menu {
+        display: flex;
+      }
+
+      .app-header .menu.mobile-menu {
+        display: none;
+      }
+    }
+  </style>
+` as any;
+
+export default styles;
