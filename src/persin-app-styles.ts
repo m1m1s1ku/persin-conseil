@@ -312,6 +312,11 @@ const styles = html`
     .start { align-self: flex-start; }
     .retreat { max-width: 30em; }
     .with-picture .full-width { display: block; padding: 0;}
+    .full-width {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
 
     @media (max-width: 400px){
       .contact.grid .logotype { margin: 0}
