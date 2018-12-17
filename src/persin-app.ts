@@ -326,6 +326,12 @@ class PersinApp extends LitElement {
 
 	private _toggleMobilePopover(){
 		const mobilePopover = this.shadowRoot.querySelector('#mobileMenu') as HTMLDivElement;
+		if(window.innerWidth > 700){
+			mobilePopover.classList.add('hidden');
+			mobilePopover.classList.remove('visible');
+			return;
+		}
+
 		if(mobilePopover.classList.contains('hidden')){
 			mobilePopover.classList.remove('hidden');
 			mobilePopover.classList.add('visible');
