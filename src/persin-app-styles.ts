@@ -100,7 +100,15 @@ const styles = html`
       position: absolute;
       width: 100%;
       right: 0;
+      transition:visibility 0.3s linear, opacity 0.3s linear;
       top: 50px;
+    }
+
+    .mobile-popover.hidden {
+      opacity: 0;
+    }
+    .mobile-popover.visible {
+      opacity: 1;
     }
 
     .app-header .mobile-popover nav ul li {

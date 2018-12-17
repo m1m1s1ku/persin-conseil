@@ -89,7 +89,7 @@ class PersinApp extends LitElement {
 					<div class="menu mobile-menu">
 						<iron-icon icon='menu' @click="${this._toggleMobilePopover}"></iron-icon>
 					</div>
-					<div id="mobileMenu" class="mobile-popover" style="visibility: hidden;">
+					<div id="mobileMenu" class="mobile-popover">
 						${websiteNavigation}
 					</div>
 				</header>
@@ -259,6 +259,8 @@ class PersinApp extends LitElement {
 		this.shadowRoot.querySelector(`#${link.class}`).scrollIntoView({ 
 			behavior: 'smooth' 
 		});
+
+		this._toggleMobilePopover();
 	}
 
 	private _showLegal(): void {
@@ -324,10 +326,12 @@ class PersinApp extends LitElement {
 
 	private _toggleMobilePopover(){
 		const mobilePopover = this.shadowRoot.querySelector('#mobileMenu') as HTMLDivElement;
-		if(mobilePopover.style.visibility === 'visible'){
-			mobilePopover.style.visibility = 'hidden';
+		if(mobilePopover.classList.contains('hidden')){
+			mobilePopover.classList.remove('hidden');
+			mobilePopover.classList.add('visible');
 		} else {
-			mobilePopover.style.visibility = 'visible';
+			mobilePopover.classList.add('hidden');
+			mobilePopover.classList.remove('visible');
 		}
 	}
 }
