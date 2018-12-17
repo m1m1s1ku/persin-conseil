@@ -68,7 +68,7 @@ class PersinApp extends LitElement {
 				<ul>
 					${links.map((link) => {
 						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => this._onNavClick(link)}">
+						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => this._onNavClick(link, true)}">
 							<a href="#${link.class}">
 								${link.content}
 							</a>
@@ -84,7 +84,7 @@ class PersinApp extends LitElement {
 			</style>
 			<div id="persin-app" class="app">
 				<header class="app-header">
-					<h1 @click="${() => {this._onNavClick({class: 'home'})}}">Persin Conseil</h1>
+					<h1 @click="${() => {this._onNavClick({class: 'home'}, false)}}">Persin Conseil</h1>
 					<div class="menu desktop-menu">
 						${websiteNavigation}
 					</div>
@@ -255,21 +255,20 @@ class PersinApp extends LitElement {
 	}
 
 	private _scrollTo(element: HTMLElement) {
-		/*element.scrollIntoView({
-			behavior: 'smooth'
-		});*/
 		zenscroll.intoView(element);
 
 	}
 
-	private _onNavClick(link: {class: string}): void {
+	private _onNavClick(link: {class: string}, fromBurger: boolean): void {
 		this.currentSection = link.class;
 		window.location.hash = link.class;
 
 		const section = this.shadowRoot.querySelector(`#${link.class}`) as HTMLDivElement;
 		this._scrollTo(section);
 
-		this._toggleMobilePopover();
+		if(fromBurger){
+			this._toggleMobilePopover();
+		}
 	}
 
 	private _showLegal(): void {

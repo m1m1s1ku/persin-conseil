@@ -1,7 +1,7 @@
 import { html } from '@polymer/lit-element';
 
 const PERSIN_GREEN = '#42BB74';
-const PERSIN_DARK_GREEN = '#39AB68';
+const PERSIN_DARK_GREEN = '#278e51';
 
 const parallaxPath = `assets/parallax/`;
 
@@ -37,6 +37,7 @@ const styles = html`
     .app-header {
       position: fixed;
       width: 100%;
+      z-index: 999;
       background-color: ${PERSIN_GREEN};
       color: white;
       height: 50px;
@@ -123,7 +124,7 @@ const styles = html`
     }
 
     .app-header .mobile-popover nav ul {
-      background-color: ${PERSIN_GREEN};
+      background-color: rgba(66, 187, 116, .9);
       margin: 0;
       padding: .5em;
     }
@@ -302,16 +303,19 @@ const styles = html`
         align-items: center;
         flex-direction: column;
     }
-    .with-picture > div { margin: .5em }
     .start { align-self: flex-start; }
     .retreat { max-width: 30em; }
+    .with-picture .full-width { display: block; padding: 0;}
 
     @media (max-width: 400px){
       .contact.grid .logotype { margin: 0}
       .text-content { display: block }
     }
 
-    @media (min-width: 400px){ footer.grid { flex-direction: row } }
+    @media (min-width: 400px){ 
+      footer.grid { flex-direction: row } 
+      .with-picture .full-width { padding: 0 2.5em;} 
+    }
 
     @media(min-width: 700px){
       .with-picture { flex-direction: row }
