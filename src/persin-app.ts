@@ -31,6 +31,7 @@ class PersinApp extends LitElement {
 	@property({type: Object})
 	private isOnline: boolean;
 
+
 	constructor(){
 		super();
 		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
@@ -81,7 +82,7 @@ class PersinApp extends LitElement {
 			<style>
 				${styles}
 			</style>
-			<div class="app">
+			<div id="persin-app" class="app">
 				<header class="app-header">
 					<h1 @click="${() => {this._onNavClick({class: 'home'})}}">Persin Conseil</h1>
 					<div class="menu desktop-menu">
@@ -253,13 +254,18 @@ class PersinApp extends LitElement {
 		}
 	}
 
+	private _scrollTo(element: HTMLElement) {
+		element.scrollIntoView({
+			behavior: 'smooth'
+		});
+	}
+
 	private _onNavClick(link: {class: string}): void {
 		this.currentSection = link.class;
 		window.location.hash = link.class;
 
-		this.shadowRoot.querySelector(`#${link.class}`).scrollIntoView({ 
-			behavior: 'smooth' 
-		});
+		const section = this.shadowRoot.querySelector(`#${link.class}`) as HTMLDivElement;
+		this._scrollTo(section);
 
 		this._toggleMobilePopover();
 	}
