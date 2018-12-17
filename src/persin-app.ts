@@ -1,4 +1,5 @@
 import { LitElement, html, property } from '@polymer/lit-element';
+import { supportsWebp } from './images';
 import styles from './persin-app-styles';
 
 import { PaperButtonElement } from '@polymer/paper-button/paper-button';
@@ -13,7 +14,6 @@ import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-dialog/paper-dialog';
-import { supportsWebp } from './images';
 
 // Offline plugin for production builds
 if(location.host.indexOf('localhost') === -1){
