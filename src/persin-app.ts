@@ -13,6 +13,7 @@ import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-dialog/paper-dialog';
+import { supportsWebp } from './images';
 
 // Offline plugin for production builds
 if(location.host.indexOf('localhost') === -1){
@@ -23,6 +24,21 @@ if(location.host.indexOf('localhost') === -1){
 class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
+
+	@property({type: String})
+	private imageFormat: string;
+
+	constructor(){
+		super();
+		this.imageFormat = 'jpg';
+	}
+
+	connectedCallback(){
+		super.connectedCallback();
+		supportsWebp().then((supports) => {
+			if(supports) this.imageFormat = 'webp';
+		})
+	}
 
 	public render() {
 		const links = [
@@ -67,7 +83,7 @@ class PersinApp extends LitElement {
 					</div>
 				</header>
 
-				<div id="home" class="home header section parallax" style="background-image: url('assets/parallax/intro-bg.jpg'); min-height: 200px;" @mouseover="${this._onScroll}">
+				<div id="home" class="home header section parallax ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<h3>Persin Conseil</h3>
 					<p>Conseil & Services</p>
 				</div>
@@ -81,7 +97,7 @@ class PersinApp extends LitElement {
 					<h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
 				</div>
 
-				<div id="conseil" class="conseil section text-content parallax white" @mouseover="${this._onScroll}" style="background-image: url('assets/parallax/conseil.jpg');">
+				<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<h2>Conseil</h2>
 					<p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
 					<p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
@@ -91,7 +107,11 @@ class PersinApp extends LitElement {
 				</div>
 				<div id="installation" class="installation section text-content no-background with-picture" @mouseover="${this._onScroll}">
 					<div>
-						<img src="assets/installation.png" alt="Installation">
+						<picture>
+							<source srcset="assets/installation.webp" type="image/webp">
+							<source srcset="assets/installation.jpg" type="image/jpeg"> 
+							<img src="assets/installation.jpg" alt="Installation">
+						</picture>
 					</div>
 					<div>
 						<h2>Installation</h2>
@@ -100,7 +120,7 @@ class PersinApp extends LitElement {
 						<p>A travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
 					</div>
 				</div>
-				<div id="formation" class="formation section parallax text-content white" @mouseover="${this._onScroll}" style="background-image: url('assets/parallax/formation.jpg');">
+				<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<h2>Formation</h2>
 					<p>Chaque opérateur n'ayant pas des besoins et un niveau similaire, nos consultants vous proposent des formations informatiques sur site adaptés à votre demande dont le contenu et la durée sont totalement flexible. </p>
 					<p>Nous offrons des formations informatique à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
@@ -111,7 +131,11 @@ class PersinApp extends LitElement {
 				<div id="assistance" class="assistance section text-content no-background" @mouseover="${this._onScroll}">
 					<div class="with-picture">
 						<div>
-							<img src="assets/assistance.jpg" alt="Assistance">
+							<picture>
+								<source srcset="assets/assistance.webp" type="image/webp">
+								<source srcset="assets/assistance.jpg" type="image/jpeg"> 
+								<img src="assets/assistance.jpg" alt="Assistance">
+							</picture>
 						</div>
 						<div class="full-width">
 							<h2>Assistance</h2>
@@ -126,10 +150,15 @@ class PersinApp extends LitElement {
 						<p>Ainsi, nous résolvons avec rapidité et efficacité, l'ensemble de vos problématiques.</p>
 					</div>
 				</div>
-				<div id="contact" class="contact section parallax grid" @mouseover="${this._onScroll}" style="background-image: url('assets/parallax/contact.jpg');">
+				<div id="contact" class="contact section parallax grid ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<div>
 						<div class="logotype">
-							<img class="persin__logo" src="assets/persin.jpg" alt="Persin">
+
+							<picture>
+								<source srcset="assets/persin.webp" type="image/webp">
+								<source srcset="assets/persin.jpg" type="image/jpeg"> 
+								<img class="persin__logo" src="assets/persin.jpg" alt="Persin">
+							</picture>
 							<h4>Conseil & Services</h4>
 						</div>
 						<div class="contact_infos">

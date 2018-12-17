@@ -8,6 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const OfflinePlugin = require('offline-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
 
 const ENV = process.argv.find(arg => arg.includes('production'))
   ? 'production'
@@ -167,7 +168,16 @@ const productionConfig = merge([
           publicPath: 'https://troll.lemondeenchantier.com',
           excludes: ['**/*.map', '**/*.gz', '**/*.d.ts']
         }
-      )
+      ),
+      new ImageminWebpWebpackPlugin({
+        config: [{
+          test: /\.(jpe?g|png)$/,
+          options: {
+            quality:  50
+          }
+        }],
+        detailedLogs: true
+      })
     ]
   }
 ]);
