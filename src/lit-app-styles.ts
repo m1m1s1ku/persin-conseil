@@ -5,6 +5,12 @@ const PERSIN_DARK_GREEN = '#39AB68';
 
 const styles = html`
   <style>
+    /* 
+      Generics 
+    */
+    paper-input, paper-textarea { --paper-input-container-focus-color: ${PERSIN_GREEN}}
+    paper-dialog { overflow-y: scroll }
+
     .app {
       text-align: center;
       font-family: sans-serif;
@@ -33,17 +39,12 @@ const styles = html`
       font-family: 'PT Sans', sans-serif;
     }
 
-    .app-header .menu.desktop-menu {
-      display: none;
-    }
-
-    .app-header .menu.mobile-menu {
-      display: block;
-    }
-
-    .app-header .desktop-menu nav {
-      padding-right: 30px;
-    }
+    /*
+      Menu 
+    */
+    .app-header .menu.desktop-menu { display: none }
+    .app-header .menu.mobile-menu { display: block }
+    .app-header .desktop-menu nav { padding-right: 30px }
 
     .app-header .desktop-menu nav ul {
       margin: 0;
@@ -93,25 +94,27 @@ const styles = html`
       padding: .5em;
     }
 
+    /* 
+      Effects 
+    */
     .parallax {
       background-attachment: fixed;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
     }
-
-    .header {
-      padding-top: 40px;
-    }
+    
+    /* 
+      Site header 
+    */
+    .header { padding-top: 40px }
 
     .header h3 {
       font-size: 2em;
       padding-top: 1em;
     }
 
-    .header p {
-      padding-top: .3em;
-    }
+    .header p { padding-top: .3em }
 
     .header h3, .header p {
       margin: 0;
@@ -141,14 +144,12 @@ const styles = html`
       background-color: white;
     }
 
-    .with-picture > div {
-      margin: .5em;
-    }
+    .text-content p, 
+    .text-content h3 { text-align: justify }
 
-    .text-content p, .text-content h3 {
-      text-align: justify;
-    }
-
+    /* 
+      Contact 
+    */
     .contact.grid {
       padding: 5em;
       display: flex;
@@ -170,9 +171,7 @@ const styles = html`
       transition: color .3s;
     }
 
-    .contact.grid > div a:hover {
-      color: #CCC;
-    }
+    .contact.grid > div a:hover { color: #CCC }
 
     .contact.grid .logotype {
       display: flex;
@@ -181,11 +180,32 @@ const styles = html`
       margin: 2.5em;
     }
 
-    .contact.grid .logotype h4 {
-      margin-left: 10px;
+    .contact.grid .logotype h4 { margin-left: 10px }
+
+    .contact.grid paper-input, 
+    .contact.grid paper-textarea,  
+    .contact.grid paper-button {
+      background-color: rgba(255, 255, 255, .8);
+      text-align: left;
+      padding: .5em;
+      border-radius: 2px;
+    }
+    
+    .contact.grid paper-button {
+      margin-top: 1em;
+      color: black;
+      align-self: flex-end;
     }
 
-    .contact-form:after {
+    .contact.grid paper-button[disabled] { color: grey }
+
+    .contact.grid .contact-form {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0;
+    }
+
+    .contact.grid .contact-form:after {
       content: 'Le mail a été envoyé avec succès !';
       opacity: 0;
       transition: opacity .3s;
@@ -196,39 +216,12 @@ const styles = html`
       margin-top: 100px;
     }
 
-    .contact-form.sended:after {
+    .contact.grid .contact-form.sended:after {
       opacity: 1;
     }
-
-    .contact.grid paper-input, 
-    .contact.grid paper-textarea,  
-    .contact.grid paper-button {
-      background-color: rgba(255, 255, 255, .8);
-      text-align: left;
-      padding: .5em;
-      border-radius: 2px;
-    }
-
-    paper-input, paper-textarea {
-      --paper-input-container-focus-color: ${PERSIN_GREEN};
-    }
-    
-    .contact.grid paper-button {
-      margin-top: 1em;
-      color: black;
-      align-self: flex-end;
-    }
-
-    .contact.grid paper-button[disabled] {
-      color: grey;
-    }
-
-    .contact .contact-form {
-      display: flex;
-      flex-direction: column;
-      margin: 2em 0;
-    }
-
+    /* 
+      Footer 
+    */
     footer {
       height: 125px;
     }
@@ -244,7 +237,8 @@ const styles = html`
       align-items: center;
     }
 
-    footer.grid > div.copyright, footer.grid > div.copyright a {
+    footer.grid > div.copyright, 
+    footer.grid > div.copyright a {
       color: white;
       text-decoration: none;
     }
@@ -262,55 +256,31 @@ const styles = html`
       margin: 0 .5em;
     }
 
+    .mentions { cursor: pointer; }
+
+    /* 
+      Helpers 
+    */
     .with-picture {
         display: flex;
         align-items: center;
         flex-direction: column;
     }
-
-    .start {
-      align-self: flex-start;
-    }
-
-    .retreat {
-      max-width: 30em;
-    }
-
-    .mentions {
-      cursor: pointer;
-    }
-
-    paper-dialog {
-      overflow-y: scroll;
-    }
+    .with-picture > div { margin: .5em }
+    .start { align-self: flex-start; }
+    .retreat { max-width: 30em; }
 
     @media (max-width: 400px){
-      .contact.grid .logotype {
-        margin: 0;
-      }
-      .text-content {
-        display: block;
-      }
+      .contact.grid .logotype { margin: 0}
+      .text-content { display: block }
     }
 
-    @media (min-width: 400px){
-      footer.grid {
-        flex-direction: row;
-      }
-    }
+    @media (min-width: 400px){ footer.grid { flex-direction: row } }
 
     @media(min-width: 700px){
-      .with-picture {
-        flex-direction: row;
-      }
-
-      .app-header .menu.desktop-menu {
-        display: flex;
-      }
-
-      .app-header .menu.mobile-menu {
-        display: none;
-      }
+      .with-picture { flex-direction: row }
+      .app-header .menu.desktop-menu { display: flex }
+      .app-header .menu.mobile-menu { display: none }
     }
   </style>
 ` as any;
