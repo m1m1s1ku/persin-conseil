@@ -71,7 +71,7 @@ class PersinApp extends LitElement {
 			</style>
 			<div class="app">
 				<header class="app-header">
-					<h1>Persin Conseil</h1>
+					<h1 @click="${() => {this._onNavClick({class: 'home'})}}">Persin Conseil</h1>
 					<div class="menu desktop-menu">
 						${websiteNavigation}
 					</div>

@@ -22,7 +22,8 @@ const styles = html`
     */
     paper-input, paper-textarea { --paper-input-container-focus-color: ${PERSIN_GREEN}}
     paper-dialog { overflow-y: scroll }
-
+    picture {pointer-events: none }
+    
     .app {
       text-align: center;
       font-family: sans-serif;
@@ -41,9 +42,15 @@ const styles = html`
       box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     }
 
+    .app-header {
+      user-select: none;
+    }
+
     .app-header h1 {
       font-size: 1.1em;
       font-weight: bold;
+      cursor: pointer;
+      outline: none;
       text-transform: uppercase;
       padding: 0 40px;
       margin: 0;
@@ -119,11 +126,11 @@ const styles = html`
     /* 
       Site header 
     */
-    .header { padding-top: 40px }
+    .header { padding-top: 40px; user-select: none; }
 
     .header h3 {
       font-size: 2em;
-      padding-top: 1em;
+      padding-top: 2em;
     }
 
     .header p { padding-top: .3em }
@@ -189,6 +196,7 @@ const styles = html`
       display: flex;
       align-items: center;
       align-self: center;
+      user-select: none;
       margin: 2.5em;
     }
 
@@ -251,6 +259,7 @@ const styles = html`
 
     footer.grid > div.copyright, 
     footer.grid > div.copyright a {
+      user-select: none;
       color: white;
       text-decoration: none;
     }
