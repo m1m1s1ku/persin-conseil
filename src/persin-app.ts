@@ -42,13 +42,13 @@ class PersinApp extends LitElement {
 			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
 		});
 		this.isOnline = navigator.onLine;
-		window.addEventListener('online',  this._onOnlineStatusChange);
-		window.addEventListener('offline', this._onOnlineStatusChange);
+		window.addEventListener('online',  this._onOnlineStatusChange, { passive: true });
+		window.addEventListener('offline', this._onOnlineStatusChange, { passive: true });
 	}
 
 	disconnectedCallback(){
-		window.removeEventListener('online',  this._onOnlineStatusChange);
-		window.removeEventListener('offline', this._onOnlineStatusChange);
+		window.removeEventListener('online',  this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
+		window.removeEventListener('offline', this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
 	}
 
 	public render() {

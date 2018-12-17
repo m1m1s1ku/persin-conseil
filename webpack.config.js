@@ -79,6 +79,8 @@ const commonConfig = merge([
     plugins: [
       new ManifestPlugin(),
       new WebpackPwaManifest({
+        filename: 'app-manifest.json',
+        theme_color: '#42BB74',
         name: 'Persin Conseil : Prestation de Services Informatique',
         short_name: 'Persin',
         description: 'Installation Formation Assistance Informatique Paris',
