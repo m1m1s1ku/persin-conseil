@@ -35,9 +35,10 @@ class PersinApp extends LitElement {
 	constructor(){
 		super();
 		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
+		this._onResize = this._onResize.bind(this);
 	}
 
-	connectedCallback(){
+	public connectedCallback(){
 		super.connectedCallback();
 		supportsWebp().then((supports) => {
 			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
@@ -45,12 +46,14 @@ class PersinApp extends LitElement {
 		this.isOnline = navigator.onLine;
 		window.addEventListener('online',  this._onOnlineStatusChange, { passive: true });
 		window.addEventListener('offline', this._onOnlineStatusChange, { passive: true });
+		window.addEventListener('resize', this._onResize, { passive: true });
 	}
 
-	disconnectedCallback(){
+	public disconnectedCallback(){
 		super.disconnectedCallback();
 		window.removeEventListener('online',  this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
 		window.removeEventListener('offline', this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
+		window.addEventListener('resize', this._onResize, { passive: true });
 	}
 
 	public render() {
@@ -244,6 +247,10 @@ class PersinApp extends LitElement {
 				</p>
 			</paper-dialog>
 		`;
+	}
+
+	private _onResize(_event: Event){
+		this._hideMobileMenu();
 	}
 
 	private _onOnlineStatusChange(event: Event){
