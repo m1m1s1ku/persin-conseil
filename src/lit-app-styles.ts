@@ -219,6 +219,10 @@ const styles = html`
       align-self: flex-end;
     }
 
+    .contact.grid paper-button[disabled] {
+      color: grey;
+    }
+
     .contact .contact-form {
       display: flex;
       flex-direction: column;

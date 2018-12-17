@@ -259,9 +259,12 @@ class PersinApp extends LitElement {
 			formData.append('email', email.value);
 			formData.append('message', message.value);
 
+			if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyAnH8k_6ZYV1YieeZCfk9VTCFnJ2yv_SnJWjT5cqFd5d3d4fZc/exec');
 			xhr.send(formData);
+
 			form.classList.add('sended');
 		}
 	}
