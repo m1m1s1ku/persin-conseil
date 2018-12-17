@@ -31,6 +31,7 @@ class PersinApp extends LitElement {
 	@property({type: Object})
 	private isOnline: boolean;
 
+	private readonly _listenersOptions: AddEventListenerOptions = { passive: true };
 
 	constructor(){
 		super();
@@ -40,20 +41,23 @@ class PersinApp extends LitElement {
 
 	public connectedCallback(){
 		super.connectedCallback();
+
 		supportsWebp().then((supports) => {
 			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
 		});
 		this.isOnline = navigator.onLine;
-		window.addEventListener('online',  this._onOnlineStatusChange, { passive: true });
-		window.addEventListener('offline', this._onOnlineStatusChange, { passive: true });
-		window.addEventListener('resize', this._onResize, { passive: true });
+		
+		window.addEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
+		window.addEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
+		window.addEventListener('resize', this._onResize, this._listenersOptions);
 	}
 
 	public disconnectedCallback(){
 		super.disconnectedCallback();
-		window.removeEventListener('online',  this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
-		window.removeEventListener('offline', this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
-		window.addEventListener('resize', this._onResize, { passive: true });
+
+		window.removeEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
+		window.removeEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
+		window.removeEventListener('resize', this._onResize, this._listenersOptions);
 	}
 
 	public render() {
