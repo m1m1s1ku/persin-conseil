@@ -1,9 +1,10 @@
 import { LitElement, html, property } from '@polymer/lit-element';
 import styles from './lit-app-styles';
 
+import { PaperButtonElement } from '@polymer/paper-button/paper-button';
+import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog';
 import { PaperInputElement } from '@polymer/paper-input/paper-input';
 import { PaperTextareaElement } from '@polymer/paper-input/paper-textarea';
-import { PaperButtonElement } from '@polymer/paper-button/paper-button';
 
 import '@polymer/iron-icon/iron-icon';
 import '@polymer/iron-icons/iron-icons';
@@ -12,46 +13,19 @@ import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-dialog/paper-dialog';
-import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog';
 
 class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
 
-	public connectedCallback(){
-		super.connectedCallback();
-	}
-
-	public disconnectedCallback(){
-		super.disconnectedCallback();
-	}
-
 	public render() {
 		const links = [
-			{
-				class: 'home', 
-				content: html`<iron-icon icon="home"></iron-icon>`
-			},
-			{
-				class: 'conseil',
-				content: 'Conseil'
-			},
-			{
-				class: 'installation',
-				content: 'Installation'
-			},
-			{
-				class: 'formation',
-				content: 'Formation'
-			},
-			{
-				class: 'assistance',
-				content: 'Assistance'
-			},
-			{
-				class: 'contact',
-				content: 'Contact'
-			}
+			{ class: 'home', content: html`<iron-icon icon="home"></iron-icon>`},
+			{ class: 'conseil', content: 'Conseil' },
+			{ class: 'installation', content: 'Installation' },
+			{ class: 'formation', content: 'Formation' },
+			{ class: 'assistance', content: 'Assistance' },
+			{ class: 'contact', content: 'Contact' }
 		];
 
 		const websiteNavigation = html`
@@ -59,14 +33,7 @@ class PersinApp extends LitElement {
 				<ul>
 					${links.map((link) => {
 						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => {
-								this.currentSection = link.class;
-								window.location.hash = link.class;
-
-								this.shadowRoot.querySelector(`#${link.class}`).scrollIntoView({ 
-									behavior: 'smooth' 
-								});
-							}}">
+						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${this._onNavClick}">
 							<a href="#${link.class}">
 								${link.content}
 							</a>
@@ -225,11 +192,22 @@ class PersinApp extends LitElement {
 		`;
 	}
 
-	private _showLegal(){
-		(this.shadowRoot.querySelector('#legal') as PaperDialogElement).opened = true;
+	private _onNavClick(link: {class: string}): void {
+		this.currentSection = link.class;
+		window.location.hash = link.class;
+
+		this.shadowRoot.querySelector(`#${link.class}`).scrollIntoView({ 
+			behavior: 'smooth' 
+		});
 	}
 
-	private _doSendEmail(event: Event){
+	private _showLegal(): void {
+		const legalDialog = this.shadowRoot.querySelector('#legal') as PaperDialogElement;
+		legalDialog.opened = true;
+	}
+
+	private _doSendEmail(event: Event): void {
+		// Grab fields
 		const form = this.shadowRoot.querySelector('#contactForm') as HTMLDivElement;
 		const button = event.target as PaperButtonElement;
 		const name = this.shadowRoot.querySelector('#nom') as PaperInputElement;
@@ -241,7 +219,7 @@ class PersinApp extends LitElement {
 		const check = (input: PaperInputElement) => {
 			return input.validate();
 		};
-
+		// Check each
 		const inputs = [name, email, message];
 		inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
 		inputs.forEach((input) => {
@@ -249,8 +227,9 @@ class PersinApp extends LitElement {
 				isValid = false;
 			}
 		});
-
+		
 		if(isValid){
+			// disable everyone
 			button.disabled = true;
 			inputs.forEach((input) => input.disabled = true);
 
@@ -261,6 +240,7 @@ class PersinApp extends LitElement {
 
 			if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
 
+			// Send through Gmail
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyAnH8k_6ZYV1YieeZCfk9VTCFnJ2yv_SnJWjT5cqFd5d3d4fZc/exec');
 			xhr.send(formData);
@@ -271,8 +251,10 @@ class PersinApp extends LitElement {
 
 	private _onScroll(event: Event){
 		const target = event.target as HTMLDivElement;
-		if(target && target.classList && target.classList.contains('section') && target.classList[0] !== this.currentSection){
-			this.currentSection = target.classList[0];
+		if(target && target.classList 
+			&& target.classList.contains('section') 
+			&& target.classList[0] !== this.currentSection){ 
+				this.currentSection = target.classList[0] 
 		}
 	}
 
