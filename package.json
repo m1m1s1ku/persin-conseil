@@ -1,11 +1,11 @@
 {
-  "name": "create-lit-app",
-  "version": "1.0.0",
-  "author": "Pascal Schilp",
+  "name": "persin-website",
+  "version": "2.0.0",
+  "author": "Léonard Cherouvrier",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/"
+    "url": "https://github.com/persinconseil/persinconseil.github.io"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
@@ -15,7 +15,6 @@
     "@polymer/paper-dialog": "^3.0.1",
     "@polymer/paper-input": "^3.0.1",
     "@webcomponents/webcomponentsjs": "^2.2.1",
-    "express": "^4.16.4",
     "lit-html": "^0.14.0"
   },
   "devDependencies": {
@@ -33,7 +32,8 @@
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.5",
     "ts-loader": "^5.3.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "express": "^4.16.4"
   },
   "scripts": {
     "build": "webpack --env production",
