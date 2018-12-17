@@ -59,13 +59,15 @@ class PersinApp extends LitElement {
 				<ul>
 					${links.map((link) => {
 						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}">
-							<a href="#${link.class}" @click="${() => {
+						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => {
 								this.currentSection = link.class;
+								window.location.hash = link.class;
+
 								this.shadowRoot.querySelector(`#${link.class}`).scrollIntoView({ 
 									behavior: 'smooth' 
 								});
 							}}">
+							<a href="#${link.class}">
 								${link.content}
 							</a>
 						</li>`;
