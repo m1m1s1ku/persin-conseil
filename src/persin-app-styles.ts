@@ -106,6 +106,7 @@ const styles = html`
 
     .mobile-popover.hidden {
       opacity: 0;
+      pointer-events: none;
     }
     .mobile-popover.visible {
       opacity: 1;
@@ -316,6 +317,7 @@ const styles = html`
       .with-picture { flex-direction: row }
       .app-header .menu.desktop-menu { display: flex }
       .app-header .menu.mobile-menu { display: none }
+      .app-header .mobile-popover { pointer-events: none }
     }
   </style>
 ` as any;
