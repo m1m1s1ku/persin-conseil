@@ -133,7 +133,7 @@ class PersinApp extends LitElement {
 						<h2>Installation</h2>
 						<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à portée de main.</p> 
 						<p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédiée à votre activité.</p> 
-						<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
+						<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisée face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
 					</div>
 				</div>
 				<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
@@ -230,7 +230,9 @@ class PersinApp extends LitElement {
 				</footer>
 			</div>
 
-			<paper-dialog id="legal" class="legal-dialog" with-backdrop>
+			<paper-dialog id="legal" class="legal-dialog" with-backdrop @click="${() => {
+				this._hideLegal();
+			}}">
 				<h2>Mentions légales</h2>
 				<p>
 					Thibaut MATIAS 
@@ -263,7 +265,6 @@ class PersinApp extends LitElement {
 
 	private _scrollTo(element: HTMLElement) {
 		zenscroll.intoView(element);
-
 	}
 
 	private _onNavClick(link: {class: string}, fromBurger: boolean): void {
@@ -281,8 +282,11 @@ class PersinApp extends LitElement {
 	}
 
 	private _showLegal(): void {
-		const legalDialog = this.shadowRoot.querySelector('#legal') as PaperDialogElement;
-		legalDialog.opened = true;
+		this.legal.opened = true;
+	}
+
+	private _hideLegal(): void {
+		this.legal.opened = false;
 	}
 
 	private _doSendEmail(event: Event): void {
@@ -362,6 +366,10 @@ class PersinApp extends LitElement {
 	private _hideMobileMenu(){
 		this.mobileMenu.classList.remove('visible');
 		this.mobileMenu.classList.add('hidden');
+	}
+
+	private get legal(): PaperDialogElement {
+		return this.shadowRoot.querySelector('#legal');
 	}
 
 	private get mobileMenu(): HTMLDivElement {
