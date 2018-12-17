@@ -47,6 +47,7 @@ class PersinApp extends LitElement {
 	}
 
 	disconnectedCallback(){
+		super.disconnectedCallback();
 		window.removeEventListener('online',  this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
 		window.removeEventListener('offline', this._onOnlineStatusChange, { passive: true } as AddEventListenerOptions);
 	}
