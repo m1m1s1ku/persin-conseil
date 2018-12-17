@@ -302,7 +302,7 @@ class PersinApp extends LitElement {
 
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyAnH8k_6ZYV1YieeZCfk9VTCFnJ2yv_SnJWjT5cqFd5d3d4fZc/exec');
+			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyyZ828biwhdAWuFE4aLsScOVgpfr3G13dH0og9ww/exec');
 			xhr.onreadystatechange = () => {
 				if (xhr.status === 200) {
 					form.classList.add('sended');
