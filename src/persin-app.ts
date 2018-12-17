@@ -1,5 +1,5 @@
 import { LitElement, html, property } from '@polymer/lit-element';
-import styles from './lit-app-styles';
+import styles from './persin-app-styles';
 
 import { PaperButtonElement } from '@polymer/paper-button/paper-button';
 import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog';

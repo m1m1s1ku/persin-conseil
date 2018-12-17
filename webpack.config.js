@@ -41,7 +41,7 @@ const polyfills = [
 
 const commonConfig = merge([
   {
-    entry: './src/lit-app.ts',
+    entry: './src/persin-app.ts',
     output: {
       path: OUTPUT_PATH,
       filename: '[name].[chunkhash:8].js'
