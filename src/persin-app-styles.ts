@@ -26,8 +26,8 @@ const styles = html`
     
     .app {
       text-align: center;
-      font-family: sans-serif;
       font-family: 'IBM Plex Sans', sans-serif;
+      overflow: hidden;
     }
 
     .app-header {

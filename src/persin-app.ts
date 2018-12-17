@@ -39,7 +39,7 @@ class PersinApp extends LitElement {
 	connectedCallback(){
 		super.connectedCallback();
 		supportsWebp().then((supports) => {
-			if(supports) this.imageFormat = 'webp';
+			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
 		});
 		this.isOnline = navigator.onLine;
 		window.addEventListener('online',  this._onOnlineStatusChange);
