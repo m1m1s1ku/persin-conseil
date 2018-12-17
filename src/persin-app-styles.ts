@@ -317,6 +317,7 @@ const styles = html`
       align-items: center;
       flex-direction: column;
     }
+    .pad-thin { padding: .5em }
 
     @media (max-width: 400px){
       .contact.grid .logotype { margin: 0}

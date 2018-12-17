@@ -129,9 +129,9 @@ class PersinApp extends LitElement {
 							<img src="assets/installation.jpg" alt="Installation">
 						</picture>
 					</div>
-					<div>
+					<div class="pad-thin">
 						<h2>Installation</h2>
-						<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à porté de main.</p> 
+						<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à portée de main.</p> 
 						<p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédiée à votre activité.</p> 
 						<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
 					</div>
