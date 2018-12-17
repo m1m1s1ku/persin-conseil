@@ -14,6 +14,12 @@ import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-dialog/paper-dialog';
 
+// Offline plugin for production builds
+if(location.host.indexOf('localhost') === -1){
+	const OfflinePluginRuntime = require('offline-plugin/runtime');
+	OfflinePluginRuntime.install();
+} 
+
 class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
@@ -33,7 +39,7 @@ class PersinApp extends LitElement {
 				<ul>
 					${links.map((link) => {
 						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${this._onNavClick}">
+						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => this._onNavClick(link)}">
 							<a href="#${link.class}">
 								${link.content}
 							</a>

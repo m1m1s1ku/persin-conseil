@@ -5,6 +5,9 @@ const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const OfflinePlugin = require('offline-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 const ENV = process.argv.find(arg => arg.includes('production'))
   ? 'production'
@@ -71,7 +74,49 @@ const commonConfig = merge([
           exclude: /node_modules/
         }
       ]
-    }
+    },
+    plugins: [
+      new ManifestPlugin(),
+      new WebpackPwaManifest({
+        name: 'Persin Conseil : Prestation de Services Informatique',
+        short_name: 'Persin',
+        description: 'Installation Formation Assistance Informatique Paris',
+        background_color: '#ffffff',
+        crossorigin: 'use-credentials',
+        icons: [
+          {
+            src: resolve('./src/assets/icons/icon-1024-1024.png'),
+            sizes: "1024x1024",
+            type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-512-512.png'),
+            sizes: "512x512",
+            type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-256-256.png'),
+            sizes: "256x256",
+            type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-192-192.png'),
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-128-128.png'),
+            sizes: "128x128",
+            type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-96-96.png'),
+            sizes: "96x96",
+            type: "image/png"
+          }
+        ]
+      })
+    ]
   }
 ]);
 
@@ -110,7 +155,19 @@ const productionConfig = merge([
           minifyCSS: true,
           minifyJS: true
         }
-      })
+      }),
+      new OfflinePlugin(
+        {
+          appShell: '/index.html',
+          responseStrategy: 'cache-first',
+          relativePaths: true,
+          ServiceWorker: {
+            output: 'service-worker.js'
+          },
+          publicPath: 'https://troll.lemondeenchantier.com',
+          excludes: ['**/*.map', '**/*.gz', '**/*.d.ts']
+        }
+      )
     ]
   }
 ]);
