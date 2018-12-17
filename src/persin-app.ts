@@ -100,9 +100,9 @@ class PersinApp extends LitElement {
 				</div>
 
 				<div class="home section text-content no-background" @mouseover="${this._onScroll}">
-					<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprises et particuliers. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
+					<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
 					<h3>Notre valeur ajoutée ?</h3>
-					<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatique : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
+					<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
 					<p>Compétitive sur le plan des tarifs, Persin Conseil assure une intervention dans des délais records complétée par un programme d'assistance à distance. </p>
 					<p>Nous nous occupons de nos clients tant sur le plan technique que sur le plan humain. Ainsi, après chaque intervention nous vous appelons afin de nous assurer de votre entière satisfaction. </p>
 					<h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
@@ -126,18 +126,18 @@ class PersinApp extends LitElement {
 					</div>
 					<div>
 						<h2>Installation</h2>
-						<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performant à porté de main.</p> 
-						<p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédié à votre activité.</p> 
-						<p>A travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
+						<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à porté de main.</p> 
+						<p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédiée à votre activité.</p> 
+						<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisé face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
 					</div>
 				</div>
 				<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}">
 					<h2>Formation</h2>
-					<p>Chaque opérateur n'ayant pas des besoins et un niveau similaire, nos consultants vous proposent des formations informatiques sur site adaptés à votre demande dont le contenu et la durée sont totalement flexible. </p>
+					<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaire, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
 					<p>Nous offrons des formations informatique à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
-					<p>Notre transfert de compétence s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
+					<p>Notre transfert de compétences s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
 					<p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
-					<p class="start">Consultez nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
+					<p class="start">Consultez-nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
 				</div>
 				<div id="assistance" class="assistance section text-content no-background" @mouseover="${this._onScroll}">
 					<div class="with-picture">
@@ -151,13 +151,13 @@ class PersinApp extends LitElement {
 						<div class="full-width">
 							<h2>Assistance</h2>
 							<p>Nos prestataires vous offrent une disponibilité totale sur site 7j/7 et se déplacent gratuitement.</p>
-							<p>Sur votre lieu professionnel ou personnel notre équipe se déplace au plus près de vous. Nous vous assistons également à distance à travers un système de partage d'écran pour remédier à tous problème et à toute interrogation que vous pourriez rencontrer. </p>
+							<p>Sur votre lieu professionnel ou personnel notre équipe se déplace au plus près de vous. Nous vous assistons également à distance à travers un système de partage d'écran pour remédier à tout problème et à toute interrogation que vous pourriez rencontrer. </p>
 							<p>Nous restons à votre disposition toute la semaine ainsi que les jours fériés pour vous guider et vous assister au quotidien. Une difficulté ou une simple question, nos conseillers répondent professionnellement et à tout instant à vos attentes.</p>
 						</div>
 					</div>
 					<div class="full-width">
-						<p>Suite à chaque intervention, nos équipes établissent votre fiche client personnelle regroupant les différentes prestations effectuées, afin de pouvoir vous répondre en parfaite connaissance de votre situation et des différentes installation dont vous bénéficiez. </p>
-						<p>Nos équipes sont prêtes à vous assister en urgence et vous proposent une intervention dans les 3 heures maximum sur un simple de votre part. </p>
+						<p>Suite à chaque intervention, nos équipes établissent votre fiche client personnelle regroupant les différentes prestations effectuées, afin de pouvoir vous répondre en parfaite connaissance de votre situation et des différentes installations dont vous bénéficiez. </p>
+						<p>Nos équipes sont prêtes à vous assister en urgence et vous proposent une intervention dans les 3 heures maximum sur un simple demande de votre part. </p>
 						<p>Ainsi, nous résolvons avec rapidité et efficacité, l'ensemble de vos problématiques.</p>
 					</div>
 				</div>
