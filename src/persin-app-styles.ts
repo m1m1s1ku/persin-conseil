@@ -8,12 +8,16 @@ const parallaxPath = `assets/parallax/`;
 const styles = html`
   <style>
     .home.jpg, .home.webp { min-height: 200px; }
+
     .home.webp { background-image: url('${parallaxPath}intro-bg.webp') }
     .home.jpg { background-image: url('${parallaxPath}intro-bg.jpg') }
+
     .conseil.jpg { background-image: url('${parallaxPath}conseil.jpg') }
     .conseil.webp { background-image: url('${parallaxPath}conseil.webp')}
+
     .formation.jpg { background-image: url('${parallaxPath}formation.jpg');}
     .formation.webp { background-image: url('${parallaxPath}formation.webp');}
+
     .contact.webp { background-image: url('${parallaxPath}contact.webp');}
     .contact.jpg { background-image: url('${parallaxPath}contact.jpg');}
 
@@ -94,12 +98,14 @@ const styles = html`
     .app-header .mobile-popover {
       display: block;
       position: absolute;
-      margin-top: 85px;
+      width: 100%;
       right: 0;
+      top: 50px;
     }
 
     .app-header .mobile-popover nav ul li {
       list-style: none;
+      padding: .5em;
     }
 
     .app-header .mobile-popover nav ul li a {
