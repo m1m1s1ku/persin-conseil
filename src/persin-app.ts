@@ -46,7 +46,7 @@ class PersinApp extends LitElement {
 			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
 		});
 		this.isOnline = navigator.onLine;
-		
+
 		window.addEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
 		window.addEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
 		window.addEventListener('resize', this._onResize, this._listenersOptions);
@@ -156,7 +156,7 @@ class PersinApp extends LitElement {
 						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 							<h2>Formation</h2>
 							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
-							<p>Nous offrons des formations informatique à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
+							<p>Nous offrons des formations informatiques à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
 							<p>Notre transfert de compétences s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
 							<p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
 							<p class="start">Consultez-nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
