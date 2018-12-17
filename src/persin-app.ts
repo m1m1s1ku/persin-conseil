@@ -113,7 +113,7 @@ class PersinApp extends LitElement {
 						<h3>Notre valeur ajoutée ?</h3>
 						<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
 						<p>Compétitive sur le plan des tarifs, Persin Conseil assure une intervention dans des délais records complétée par un programme d'assistance à distance. </p>
-						<p>Nous nous occupons de nos clients tant sur le plan technique que sur le plan humain. Ainsi, après chaque intervention nous vous appelons afin de nous assurer de votre entière satisfaction. </p>
+						<p>Nous nous préoccupons de nos clients tant sur le plan technique que sur le plan humain. Ainsi, après chaque intervention nous vous appelons afin de nous assurer de votre entière satisfaction. </p>
 						<h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
 					</div>
 				</section>
@@ -151,7 +151,7 @@ class PersinApp extends LitElement {
 					<div class="parallax-wrap">
 						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
 							<h2>Formation</h2>
-							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaire, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
+							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
 							<p>Nous offrons des formations informatique à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
 							<p>Notre transfert de compétences s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
 							<p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
