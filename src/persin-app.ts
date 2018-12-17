@@ -89,7 +89,7 @@ class PersinApp extends LitElement {
 					<div class="menu mobile-menu">
 						<iron-icon icon='menu' @click="${this._toggleMobilePopover}"></iron-icon>
 					</div>
-					<div id="mobileMenu" class="mobile-popover">
+					<div id="mobileMenu" class="mobile-popover hidden">
 						${websiteNavigation}
 					</div>
 				</header>
