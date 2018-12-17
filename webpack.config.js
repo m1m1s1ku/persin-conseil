@@ -167,7 +167,7 @@ const productionConfig = merge([
           ServiceWorker: {
             output: 'service-worker.js'
           },
-          publicPath: 'https://troll.lemondeenchantier.com',
+          publicPath: 'https://www.persin.fr',
           excludes: ['**/*.map', '**/*.gz', '**/*.d.ts']
         }
       ),
