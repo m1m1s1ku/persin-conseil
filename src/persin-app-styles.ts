@@ -262,6 +262,10 @@ const styles = html`
     .contact.grid .contact-form.sended:after {
       opacity: 1;
     }
+
+    .contact-infos > div {
+      margin: 1.5em 0;
+    }
     /* 
       Footer 
     */

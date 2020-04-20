@@ -241,7 +241,7 @@ class PersinApp extends LitElement {
 									</picture>
 									<h4>Conseil & Services</h4>
 								</div>
-								<div class="contact_infos">
+								<div class="contact-infos">
 									<div class="phone">
 										<mwc-icon>phone</mwc-icon>
 										<a href="tel:0033609888386" itemprop="telephone">+33 6 09 88 83 86</a> 

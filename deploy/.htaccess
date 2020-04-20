@@ -27,9 +27,9 @@ SetEnv TZ Europe/Paris
 # CSP fix
 <IfModule mod_headers.c>
  Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
- Header set Content-Security-Policy: "default-src * 'unsafe-inline'; script-src * 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src 'self' data: * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src data: * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
- Header set X-Content-Security-Policy: "default-src * 'unsafe-inline'; script-src * 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src 'self' data: * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src data: * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
- Header set X-WebKit-CSP: "default-src * 'unsafe-inline'; script-src * 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
+ Header set Content-Security-Policy: "default-src * 'unsafe-inline'; script-src * 'unsafe-eval' 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src 'self' data: * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src data: * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
+ Header set X-Content-Security-Policy: "default-src * 'unsafe-inline'; script-src * 'unsafe-eval' 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src 'self' data: * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src data: * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
+ Header set X-WebKit-CSP: "default-src * 'unsafe-inline'; script-src * 'unsafe-eval' 'unsafe-inline'; object-src 'none'; style-src * 'unsafe-inline'; img-src * 'unsafe-inline'; media-src 'none'; frame-src 'none'; font-src *; connect-src * 'unsafe-inline' 'unsafe-eval'; base-uri 'self'"
 
 </IfModule>
 
