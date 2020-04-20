@@ -322,7 +322,7 @@ const styles = html`
       z-index: 999;
     }
 
-    .mentions { cursor: pointer; }
+    footer.grid .mentions { cursor: pointer; margin: 0 }
 
     /* 
       Helpers 
