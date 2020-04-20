@@ -12,9 +12,7 @@
     "@material/mwc-dialog": "^0.14.1",
     "@material/mwc-textarea": "^0.14.1",
     "@material/mwc-textfield": "^0.14.1",
-    "@polymer/iron-icon": "^3.0.1",
-    "@polymer/iron-icons": "^3.0.1",
-    "@polymer/iron-iconset-svg": "^3.0.1",
+    "@material/mwc-icon": "^0.14.1",
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1"
@@ -32,8 +30,7 @@
     "webpack-dev-server": "^3.10.3",
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-merge": "^4.2.2",
-    "webpack-pwa-manifest": "^4.2.0",
-    "zenscroll": "^4.0.2"
+    "webpack-pwa-manifest": "^4.2.0"
   },
   "scripts": {
     "build": "webpack --env production",

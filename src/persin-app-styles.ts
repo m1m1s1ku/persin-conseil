@@ -294,10 +294,17 @@ const styles = html`
     footer.grid > div.social-container {
       justify-content: center;
     }
-
-    footer iron-icon.social {
-      color: white;
+    
+    footer.grid a {
       margin: 0 .5em;
+      fill: white;
+      height: 24px;
+      width: 24px;
+      transition: fill .3s;
+    }
+
+    footer.grid a:hover {
+      fill: #CCC;
     }
 
     .legal-dialog {
