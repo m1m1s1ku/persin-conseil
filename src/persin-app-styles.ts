@@ -69,6 +69,7 @@ const styles = html`
     */
     .app-header .menu.desktop-menu { display: none; height: 100%; }
     .app-header .menu.mobile-menu { display: block; margin: 1em; }
+    .app-header .menu.mobile-menu > mwc-icon-button { color: black; }
     .app-header .desktop-menu nav { padding-right: 30px }
 
     .app-header .desktop-menu nav ul {
