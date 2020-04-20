@@ -132,7 +132,6 @@ const developmentConfig = merge([
 
 const productionConfig = merge([
   {
-    devtool: 'eval',
     plugins: [
       new CleanWebpackPlugin(),
       new CopyWebpackPlugin([...polyfills, ...assets], {}),
