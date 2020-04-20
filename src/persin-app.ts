@@ -355,7 +355,7 @@ export class PersinApp extends LitElement {
 		const inputs = this._inputs();
 
 		for(const input of inputs){
-			if(input.reportValidity() === false){
+			if(input.value && input.reportValidity() === false){
 				isValid = false;
 				break;
 			}
