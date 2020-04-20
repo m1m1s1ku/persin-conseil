@@ -52,6 +52,7 @@ const styles = html`
     }
 
     .app-header h1 {
+      color: black;
       font-size: 1.1em;
       font-weight: bold;
       cursor: pointer;
@@ -96,7 +97,7 @@ const styles = html`
       text-decoration: none;
     }
 
-    .app-header .desktop-menu nav ul li a iron-icon {
+    .app-header .desktop-menu nav ul li a mwc-icon {
       margin-top: -6px;
     }
 
@@ -175,7 +176,7 @@ const styles = html`
 
     .section.text-content h2 {
       align-self: flex-start;
-      color: ${PERSIN_GREEN}
+      color: ${PERSIN_DARK_GREEN}
     }
 
     .section.text-content.white p {
@@ -266,6 +267,7 @@ const styles = html`
     .contact-infos > div {
       margin: 1.5em 0;
     }
+
     /* 
       Footer 
     */
@@ -287,7 +289,7 @@ const styles = html`
     footer.grid > div.copyright, 
     footer.grid > div.copyright a {
       user-select: none;
-      color: white;
+      color: black;
       text-decoration: none;
     }
 

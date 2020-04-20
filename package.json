@@ -10,9 +10,10 @@
   "dependencies": {
     "@material/mwc-button": "^0.14.1",
     "@material/mwc-dialog": "^0.14.1",
+    "@material/mwc-icon": "^0.14.1",
+    "@material/mwc-icon-button": "^0.14.1",
     "@material/mwc-textarea": "^0.14.1",
     "@material/mwc-textfield": "^0.14.1",
-    "@material/mwc-icon": "^0.14.1",
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1"

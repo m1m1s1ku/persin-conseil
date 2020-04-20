@@ -13,6 +13,7 @@ if(location.host.indexOf('localhost') === -1){
 }
 
 import '@material/mwc-icon';
+import '@material/mwc-icon-button';
 import '@material/mwc-dialog';
 import '@material/mwc-button';
 import '@material/mwc-textfield';
@@ -138,7 +139,7 @@ class PersinApp extends LitElement {
 						${websiteNavigation}
 					</div>
 					<div class="menu mobile-menu">
-						<mwc-icon-button @click="${this._toggleMobilePopover}">menu</mwc-icon-button>
+						<mwc-icon-button icon="menu" @click="${this._toggleMobilePopover}"></mwc-icon-button>
 					</div>
 					<div id="mobileMenu" class="mobile-popover hidden">
 						${websiteNavigation}
