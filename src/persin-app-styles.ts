@@ -265,8 +265,15 @@ const styles = html`
 
     .contact-infos > div {
       margin: 1.5em 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
 
+    .contact-infos > div > mwc-icon {
+      margin: 0 .2em;
+    }
     /* 
       Footer 
     */
