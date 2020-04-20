@@ -97,7 +97,7 @@ export class PersinApp extends LitElement {
 
 	private get _links(){
 		return [
-			{ class: 'home', content: html`<mwc-icon-button icon='home'></mwc-icon-button>`},
+			{ class: 'home', content: html`<mwc-icon>home</mwc-icon>`},
 			{ class: 'conseil', content: 'Conseil' },
 			{ class: 'installation', content: 'Installation' },
 			{ class: 'formation', content: 'Formation' },
