@@ -4,7 +4,6 @@ import { supportsWebp } from './images';
 import { TextField } from '@material/mwc-textfield';
 import { Dialog } from '@material/mwc-dialog';
 import { Button } from '@material/mwc-button';
-import styles from './persin-app-styles';
 
 // Offline plugin for production builds
 if(location.host.indexOf('localhost') === -1){
@@ -122,9 +121,6 @@ export class PersinApp extends LitElement {
 
 	public render() {
 		return html`
-			<style>
-				${styles}
-			</style>
 			<div id="persin-app" class="app">
 				<header class="app-header">
 					<h1 @click="${(e: Event) => {this._onNavClick(e, {class: 'home'}, false)}}">Persin Conseil</h1>
