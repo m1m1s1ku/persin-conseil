@@ -65,6 +65,10 @@ const styles = html`
       font-family: 'PT Sans', sans-serif;
     }
 
+    .full-pic {
+      width: 100%;
+    }
+
     /*
       Menu 
     */

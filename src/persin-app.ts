@@ -173,7 +173,7 @@ class PersinApp extends LitElement {
 							<picture>
 								<source srcset="assets/installation.webp" type="image/webp">
 								<source srcset="assets/installation.jpg" type="image/jpeg"> 
-								<img src="assets/installation.jpg" alt="Installation">
+								<img class="full-pic" src="assets/installation.jpg" alt="Installation">
 							</picture>
 						</div>
 						<div class="pad-thin">
@@ -203,7 +203,7 @@ class PersinApp extends LitElement {
 								<picture>
 									<source srcset="assets/assistance.webp" type="image/webp">
 									<source srcset="assets/assistance.jpg" type="image/jpeg"> 
-									<img src="assets/assistance.jpg" alt="Assistance">
+									<img class="full-pic" src="assets/assistance.jpg" alt="Assistance">
 								</picture>
 							</div>
 							<div class="full-width">
