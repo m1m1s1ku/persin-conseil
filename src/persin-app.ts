@@ -38,6 +38,9 @@ class PersinApp extends LitElement {
 	@query('#mobileMenu')
 	private mobileMenu: HTMLDivElement;
 
+	@query('#sendmail')
+	private sendmail: Button
+
 	private readonly _listenersOptions: AddEventListenerOptions = { passive: true };
 	private _onSectionChange: IntersectionObserverCallback = this._onSectionsChange.bind(this);
 	private _sectionsObserver = new IntersectionObserver(this._onSectionChange, {
@@ -255,7 +258,7 @@ class PersinApp extends LitElement {
 									<mwc-textfield id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
 									<mwc-textfield id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
 									<mwc-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter></mwc-textarea>
-									<mwc-button type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
+									<mwc-button disabled id="sendmail" type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
 								</div>
 								` : html`
 								<div class="contact-form">
@@ -357,6 +360,12 @@ class PersinApp extends LitElement {
 			}
 		}
 
+		if(isValid){
+			this.sendmail.disabled = false;
+		} else {
+			this.sendmail.disabled = true;
+		}
+		
 		return isValid;
 	}
 
