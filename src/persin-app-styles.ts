@@ -12,6 +12,7 @@ const styles = html`
     .home.webp { background-image: url('${parallaxPath}intro-bg.webp') }
     .home.jpg { background-image: url('${parallaxPath}intro-bg.jpg') }
 
+    .conseil h2, .formation h2 { color: white; }
     .conseil.jpg { background-image: url('${parallaxPath}conseil.jpg') }
     .conseil.webp { background-image: url('${parallaxPath}conseil.webp')}
 
