@@ -45,13 +45,8 @@ class PersinApp extends LitElement {
 		threshold: 1.0
 	});
 
-	private _mobileHide = this._hideMobileMenu.bind(this);
-
-	constructor(){
-		super();
-		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
-		this._onResize = this._onResize.bind(this);
-	}
+	private _onlineStatusChange = this._onOnlineStatusChange.bind(this);
+	private _resize = this._onResize.bind(this);
 
 	public async connectedCallback(){
 		super.connectedCallback();
@@ -65,17 +60,17 @@ class PersinApp extends LitElement {
 
 		this.isOnline = navigator.onLine;
 
-		window.addEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
-		window.addEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
-		window.addEventListener('resize', this._onResize, this._listenersOptions);
+		window.addEventListener('online',  this._onlineStatusChange, this._listenersOptions);
+		window.addEventListener('offline', this._onlineStatusChange, this._listenersOptions);
+		window.addEventListener('resize', this._resize, this._listenersOptions);
 	}
 
 	public disconnectedCallback(){
 		super.disconnectedCallback();
 
-		window.removeEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
-		window.removeEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
-		window.removeEventListener('resize', this._onResize, this._listenersOptions);
+		window.removeEventListener('online',  this._onlineStatusChange, this._listenersOptions);
+		window.removeEventListener('offline', this._onlineStatusChange, this._listenersOptions);
+		window.removeEventListener('resize', this._resize, this._listenersOptions);
 	}
 
 	private _onSectionsChange(changes: IntersectionObserverEntry[]){
@@ -92,7 +87,6 @@ class PersinApp extends LitElement {
 	// NOTE : never update a prop into that ! (re-render)
 	public async firstUpdated(){
 		for(const section of Array.from(this.sections)){
-			section.addEventListener('click', this._mobileHide);
 			this._sectionsObserver.observe(section);
 		}
 	}
@@ -140,6 +134,7 @@ class PersinApp extends LitElement {
 						${this._nav}
 					</div>
 				</header>
+				<main @click="${this._hideMobileMenu}">
 				<section>
 					<div class="parallax-wrap">
 						<div id="home" class="home header section parallax ${this.imageFormat}">
@@ -272,6 +267,7 @@ class PersinApp extends LitElement {
 						</div>
 					</div>
 				</section>
+				</main>
 				<footer class="grid" @click="${this._hideMobileMenu}">
 					<div class="social-container">
 						<a rel="noopener" title="Facebook" href="https://facebook.com/PersinConseil" target="_blank">
