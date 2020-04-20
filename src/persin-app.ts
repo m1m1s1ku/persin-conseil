@@ -256,8 +256,8 @@ export class PersinApp extends LitElement {
 								<div class="contact-form" id="contactForm" @input=${() => {
 									this._updateFields();
 								}}>
-									<mwc-textfield id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
-									<mwc-textfield id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
+									<mwc-textfield autocomplete="name" id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
+									<mwc-textfield autocomplete="email" id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
 									<mwc-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter></mwc-textarea>
 									<mwc-button disabled id="sendmail" type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
 								</div>
