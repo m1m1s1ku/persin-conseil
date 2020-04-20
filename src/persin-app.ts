@@ -336,7 +336,7 @@ class PersinApp extends LitElement {
 		this.currentSection = link.class;
 		window.location.hash = link.class;
 
-		const section = this.shadowRoot.querySelector(`#${link.class}`) as HTMLDivElement;
+		const section = this.querySelector(`#${link.class}`) as HTMLDivElement;
 		this._scrollTo(section);
 
 		if(fromBurger){
@@ -370,9 +370,9 @@ class PersinApp extends LitElement {
 	}
 
 	private _inputs(){
-		const name = this.shadowRoot.querySelector('#nom') as TextField;
-		const email = this.shadowRoot.querySelector('#email') as TextField;
-		const message = this.shadowRoot.querySelector('#message') as TextField;
+		const name = this.querySelector('#nom') as TextField;
+		const email = this.querySelector('#email') as TextField;
+		const message = this.querySelector('#message') as TextField;
 
 		return [name, email, message];
 	}
@@ -381,7 +381,7 @@ class PersinApp extends LitElement {
 		const button = event.target as Button;
 
 		// Grab fields
-		const form = this.shadowRoot.querySelector('#contactForm') as HTMLDivElement;
+		const form = this.querySelector('#contactForm') as HTMLDivElement;
 		const isValid = this._updateFields();
 		const inputs = this._inputs();
 
@@ -397,7 +397,7 @@ class PersinApp extends LitElement {
 			}
 
 			// @tool: uncomment to disable mail sending
-			if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+			// if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
 
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
@@ -434,11 +434,11 @@ class PersinApp extends LitElement {
 	}
 
 	private get legal(): Dialog {
-		return this.shadowRoot.querySelector('#legal');
+		return this.querySelector('#legal');
 	}
 
 	private get mobileMenu(): HTMLDivElement {
-		return this.shadowRoot.querySelector('#mobileMenu');
+		return this.querySelector('#mobileMenu');
 	}
 }
 
