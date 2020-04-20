@@ -39,11 +39,16 @@ class PersinApp extends LitElement {
 	private mobileMenu: HTMLDivElement;
 
 	private readonly _listenersOptions: AddEventListenerOptions = { passive: true };
-	private _onSectionChange: IntersectionObserverCallback;
+	private _onSectionChange: IntersectionObserverCallback = this._onSectionsChange.bind(this);
+	private _sectionsObserver = new IntersectionObserver(this._onSectionChange, {
+		rootMargin: '100px',
+		threshold: 1.0
+	});
+
+	private _mobileHide = this._hideMobileMenu.bind(this);
 
 	constructor(){
 		super();
-		this._onSectionChange = this._onSectionsChange.bind(this);
 		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
 		this._onResize = this._onResize.bind(this);
 	}
@@ -84,22 +89,17 @@ class PersinApp extends LitElement {
 		}
 	}
 
+	// NOTE : never update a prop into that ! (re-render)
 	public async firstUpdated(){
-		const iObserverRootOpts = {
-			rootMargin: '100px',
-			threshold: 1.0
-		};
-
-		const iObserver = new IntersectionObserver(this._onSectionChange, iObserverRootOpts)
-
 		for(const section of Array.from(this.sections)){
-			iObserver.observe(section);
+			section.addEventListener('click', this._mobileHide);
+			this._sectionsObserver.observe(section);
 		}
 	}
 
 	private get _links(){
 		return [
-			{ class: 'home', content: html`<mwc-icon>home</mwc-icon>`},
+			{ class: 'home', content: html`<mwc-icon-button icon='home'></mwc-icon-button>`},
 			{ class: 'conseil', content: 'Conseil' },
 			{ class: 'installation', content: 'Installation' },
 			{ class: 'formation', content: 'Formation' },
@@ -108,46 +108,41 @@ class PersinApp extends LitElement {
 		];
 	}
 
+	// NOTE : LightDOM for SEO testing reasons
 	public createRenderRoot(){
 		return this;
 	}
 
-	public render() {
-		const websiteNavigation = html`
-			<nav>
-				<ul>
-					${this._links.map((link) => {
-						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${(e) => this._onNavClick(e, link, true)}">
-							<a href="#${link.class}">
-								${link.content}
-							</a>
-						</li>`;
-					})}
-				</ul>
-			</nav>
-		`;
+	private get _nav(){
+		return html`<nav><ul>${this._links.map((link) => html`
+		<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${(e) => this._onNavClick(e, link, true)}">
+			<a href="#${link.class}">
+				${link.content}
+			</a>
+		</li>`)}</ul></nav>`;
+	}
 
+	public render() {
 		return html`
 			<style>
 				${styles}
 			</style>
 			<div id="persin-app" class="app">
 				<header class="app-header">
-					<h1 @click="${(e) => {this._onNavClick(e, {class: 'home'}, false)}}">Persin Conseil</h1>
+					<h1 @click="${(e: Event) => {this._onNavClick(e, {class: 'home'}, false)}}">Persin Conseil</h1>
 					<div class="menu desktop-menu">
-						${websiteNavigation}
+						${this._nav}
 					</div>
 					<div class="menu mobile-menu">
 						<mwc-icon-button icon="menu" @click="${this._toggleMobilePopover}"></mwc-icon-button>
 					</div>
 					<div id="mobileMenu" class="mobile-popover hidden">
-						${websiteNavigation}
+						${this._nav}
 					</div>
 				</header>
 				<section>
 					<div class="parallax-wrap">
-						<div id="home" class="home header section parallax ${this.imageFormat}" @click="${this._hideMobileMenu}">
+						<div id="home" class="home header section parallax ${this.imageFormat}">
 							<h3>Persin Conseil</h3>
 							<p>Conseil & Services</p>
 						</div>
@@ -155,7 +150,7 @@ class PersinApp extends LitElement {
 				</section>
 
 				<section>
-					<div class="home section text-content no-background" @click="${this._hideMobileMenu}">
+					<div class="home section text-content no-background">
 						<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
 						<h3>Notre valeur ajoutée ?</h3>
 						<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
@@ -167,7 +162,7 @@ class PersinApp extends LitElement {
 
 				<section>
 					<div class="parallax-wrap">
-						<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @click="${this._hideMobileMenu}">
+						<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}">
 							<h2>Conseil</h2>
 							<p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
 							<p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
@@ -178,7 +173,7 @@ class PersinApp extends LitElement {
 					</div>
 				</section>
 				<section>
-					<div id="installation" class="installation section text-content no-background with-picture" @click="${this._hideMobileMenu}">
+					<div id="installation" class="installation section text-content no-background with-picture">
 						<div>
 							<picture>
 								<source srcset="assets/installation.webp" type="image/webp">
@@ -196,7 +191,7 @@ class PersinApp extends LitElement {
 				</section>
 				<section>
 					<div class="parallax-wrap">
-						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @click="${this._hideMobileMenu}">
+						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}">
 							<h2>Formation</h2>
 							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
 							<p>Nous offrons des formations informatiques à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
@@ -207,7 +202,7 @@ class PersinApp extends LitElement {
 					</div>
 				</section>
 				<section>
-					<div id="assistance" class="assistance section text-content no-background" @click="${this._hideMobileMenu}">
+					<div id="assistance" class="assistance section text-content no-background">
 						<div class="with-picture">
 							<div>
 								<picture>
@@ -232,7 +227,7 @@ class PersinApp extends LitElement {
 				</section>
 				<section>
 					<div class="parallax-wrap">
-						<div id="contact" class="contact section parallax grid ${this.imageFormat}" @click="${this._hideMobileMenu}">
+						<div id="contact" class="contact section parallax grid ${this.imageFormat}">
 							<div>
 								<div class="logotype">
 									<picture>
