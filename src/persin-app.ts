@@ -1,4 +1,4 @@
-import { LitElement, html, property, queryAll, query } from 'lit-element';
+import { LitElement, html, property, queryAll, query, customElement } from 'lit-element';
 import { supportsWebp } from './images';
 
 import { TextField } from '@material/mwc-textfield';
@@ -19,7 +19,8 @@ import '@material/mwc-button';
 import '@material/mwc-textfield';
 import '@material/mwc-textarea';
 
-class PersinApp extends LitElement {
+@customElement('persin-app')
+export class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
 
@@ -365,7 +366,7 @@ class PersinApp extends LitElement {
 		} else {
 			this.sendmail.disabled = true;
 		}
-		
+
 		return isValid;
 	}
 
@@ -432,5 +433,3 @@ class PersinApp extends LitElement {
 		this.mobileMenu.classList.add('hidden');
 	}
 }
-
-customElements.define('persin-app', PersinApp);
