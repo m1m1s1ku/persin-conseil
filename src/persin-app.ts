@@ -118,7 +118,7 @@ class PersinApp extends LitElement {
 				<ul>
 					${this._links.map((link) => {
 						return html`
-						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => this._onNavClick(link, true)}">
+						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${(e) => this._onNavClick(e, link, true)}">
 							<a href="#${link.class}">
 								${link.content}
 							</a>
@@ -134,7 +134,7 @@ class PersinApp extends LitElement {
 			</style>
 			<div id="persin-app" class="app">
 				<header class="app-header">
-					<h1 @click="${() => {this._onNavClick({class: 'home'}, false)}}">Persin Conseil</h1>
+					<h1 @click="${(e) => {this._onNavClick(e, {class: 'home'}, false)}}">Persin Conseil</h1>
 					<div class="menu desktop-menu">
 						${websiteNavigation}
 					</div>
@@ -331,7 +331,9 @@ class PersinApp extends LitElement {
 		element.scrollIntoView({behavior: 'smooth'});
 	}
 
-	private _onNavClick(link: {class: string}, fromBurger: boolean): void {
+	private _onNavClick(e: Event, link: {class: string}, fromBurger: boolean): void {
+		e.preventDefault();
+		
 		this.currentSection = link.class;
 
 		const section = this.querySelector(`#${link.class}`) as HTMLDivElement;
