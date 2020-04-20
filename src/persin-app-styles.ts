@@ -357,11 +357,11 @@ const styles = html`
 
     @media (min-width: 400px){ 
       footer.grid { flex-direction: row } 
-      .with-picture .full-width { padding: 0 2.5em;} 
     }
 
     @media(min-width: 700px){
       .with-picture { flex-direction: row }
+      .with-picture .full-width { padding: 0 0 0 2.5em;} 
       .app-header .menu.desktop-menu { display: flex }
       .app-header .menu.mobile-menu { display: none }
       .app-header .mobile-popover { pointer-events: none }
