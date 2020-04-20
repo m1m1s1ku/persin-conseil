@@ -103,6 +103,10 @@ class PersinApp extends LitElement {
 			{ class: 'contact', content: 'Contact' }
 		];
 	}
+	
+	public createRenderRoot(){
+		return this;
+	}
 
 	public render() {
 		const websiteNavigation = html`
