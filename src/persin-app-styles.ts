@@ -90,6 +90,7 @@ const styles = html`
       height: 100%;
       list-style: none;
       transition: background-color .3s;
+      cursor: pointer;
     }
 
     .app-header .desktop-menu nav ul li a {
