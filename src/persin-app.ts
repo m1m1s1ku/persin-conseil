@@ -103,7 +103,7 @@ class PersinApp extends LitElement {
 			{ class: 'contact', content: 'Contact' }
 		];
 	}
-	
+
 	public createRenderRoot(){
 		return this;
 	}
@@ -310,7 +310,7 @@ class PersinApp extends LitElement {
 					<br><br>R.C.S : 504 629 551 Nanterre 
 					<br>SIRET : 504 629 551 00012 
 					<br>APE : 9511Z 
-					<br>N° TVA Intracommunautaire : FR62504629551 <br><br>Conformément à la LOI n° 2004-801 du 6 août 2004 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel modifiant la loi n° 78-17 du 6 janvier 1978, ce site a été déclaré auprès de la CNIL. <br>Le N° d’enregistrement CNIL est le 662531. <br>Nous vous rappelons qu’en notre qualité, nous sommes assujetties au secret professionnel dans les conditions prévues aux articles 226-13 et 226-14 du code pénal, pour tout ce qui concerne la divulgation de ces éléments d'identification personnelle ou de toute information permettant d'identifier la personne concernée. Ce secret professionnel n'est pas opposable à l'autorité judiciaire. <br>Hébergeur : OVH | 2 rue Kellermann | 59100 Roubaix | France | Tel: 08 203 203 63 n° indigo (0.118 €/min) <br>Web : <a href="http://www.persin.fr">http://www.persin.fr</a> | <a href="http://persin.fr">http://persin.fr</a> <br>Référencement du site fait par : <a href="http://www.persin.fr">http://www.persin.fr</a> <br>Les droits d'auteurs de ce site sont enregistrés devant notaire. Toute reproduction sera poursuivi devant les tribunaux.</p>
+					<br>N° TVA Intracommunautaire : FR62504629551 <br><br>Conformément à la LOI n° 2004-801 du 6 août 2004 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel modifiant la loi n° 78-17 du 6 janvier 1978, ce site a été déclaré auprès de la CNIL. <br>Le N° d’enregistrement CNIL est le 662531. <br>Nous vous rappelons qu’en notre qualité, nous sommes assujetties au secret professionnel dans les conditions prévues aux articles 226-13 et 226-14 du code pénal, pour tout ce qui concerne la divulgation de ces éléments d'identification personnelle ou de toute information permettant d'identifier la personne concernée. Ce secret professionnel n'est pas opposable à l'autorité judiciaire. <br>Hébergeur : OVH | 2 rue Kellermann | 59100 Roubaix | France | Tel: 08 203 203 63 n° indigo (0.118 €/min) <br>Web : <a title="avec-WWW" href="http://www.persin.fr">http://www.persin.fr</a> | <a title="sans-WWW" href="http://persin.fr">http://persin.fr</a> <br>Référencement du site fait par : <a title="SEO" href="http://www.persin.fr">http://www.persin.fr</a> <br>Les droits d'auteurs de ce site sont enregistrés devant notaire. Toute reproduction sera poursuivi devant les tribunaux.</p>
 				</div>
 			</mwc-dialog>
 		`;
