@@ -48,8 +48,17 @@ class PersinApp extends LitElement {
 		this._onResize = this._onResize.bind(this);
 	}
 
-	public connectedCallback(){
+	public async connectedCallback(){
 		super.connectedCallback();
+
+		const supports = await supportsWebp();
+		if(supports){
+			this.imageFormat = 'webp';
+		} else {
+			this.imageFormat = 'jpg';
+		}
+
+		this.isOnline = navigator.onLine;
 
 		window.addEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
 		window.addEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
@@ -75,16 +84,7 @@ class PersinApp extends LitElement {
 		}
 	}
 
-	async firstUpdated(){
-		const supports = await supportsWebp();
-		if(supports){
-			this.imageFormat = 'webp';
-		} else {
-			this.imageFormat = 'jpg';
-		}
-
-		this.isOnline = navigator.onLine;
-
+	public async firstUpdated(){
 		const iObserverRootOpts = {
 			rootMargin: '100px',
 			threshold: 1.0
