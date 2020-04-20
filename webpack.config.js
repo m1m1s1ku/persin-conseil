@@ -4,7 +4,7 @@ const { resolve, join } = require('path');
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const OfflinePlugin = require('offline-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest')
@@ -55,20 +55,6 @@ const commonConfig = merge([
     },
     module: {
       rules: [
-        {
-          test: /\.js$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                babelrc: true,
-                extends: join(__dirname + '/.babelrc'),
-                cacheDirectory: true,
-                envName: ENV
-              }
-            }
-          ]
-        },
         {
           test: /\.tsx?$/,
           use: 'ts-loader',
@@ -148,7 +134,7 @@ const productionConfig = merge([
   {
     devtool: 'nosources-source-map',
     plugins: [
-      new CleanWebpackPlugin([OUTPUT_PATH], { verbose: true }),
+      new CleanWebpackPlugin(),
       new CopyWebpackPlugin([...polyfills, ...assets]),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE,

@@ -1,26 +1,26 @@
-import { LitElement, html, property } from '@polymer/lit-element';
+import { LitElement, html, property, queryAll } from 'lit-element';
 import { supportsWebp } from './images';
+
+import { TextField } from '@material/mwc-textfield';
+import { Dialog } from '@material/mwc-dialog';
+import { Button } from '@material/mwc-button';
 import styles from './persin-app-styles';
 import * as zenscroll from 'zenscroll';
 
-import { PaperButtonElement } from '@polymer/paper-button/paper-button';
-import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog';
-import { PaperInputElement } from '@polymer/paper-input/paper-input';
-import { PaperTextareaElement } from '@polymer/paper-input/paper-textarea';
-
 import '@polymer/iron-icon/iron-icon';
 import '@polymer/iron-icons/iron-icons';
-import '@polymer/iron-iconset-svg/iron-iconset-svg';
-import '@polymer/paper-input/paper-input';
-import '@polymer/paper-input/paper-textarea';
-import '@polymer/paper-button/paper-button';
-import '@polymer/paper-dialog/paper-dialog';
 
 // Offline plugin for production builds
 if(location.host.indexOf('localhost') === -1){
 	const OfflinePluginRuntime = require('offline-plugin/runtime');
 	OfflinePluginRuntime.install();
-} 
+}
+
+import '@material/mwc-dialog';
+import '@material/mwc-button';
+import '@material/mwc-textfield';
+import '@material/mwc-textarea';
+
 class PersinApp extends LitElement {
 	@property({type: String})
 	private currentSection: string;
@@ -31,21 +31,21 @@ class PersinApp extends LitElement {
 	@property({type: Object})
 	private isOnline: boolean;
 
+	@queryAll('.section')
+	private sections: NodeListOf<HTMLDivElement>;
+
 	private readonly _listenersOptions: AddEventListenerOptions = { passive: true };
+	private _onSectionChange: IntersectionObserverCallback;
 
 	constructor(){
 		super();
+		this._onSectionChange = this._onSectionsChange.bind(this);
 		this._onOnlineStatusChange = this._onOnlineStatusChange.bind(this);
 		this._onResize = this._onResize.bind(this);
 	}
 
 	public connectedCallback(){
 		super.connectedCallback();
-
-		supportsWebp().then((supports) => {
-			if(supports) this.imageFormat = 'webp'; else this.imageFormat = 'jpg';
-		});
-		this.isOnline = navigator.onLine;
 
 		window.addEventListener('online',  this._onOnlineStatusChange, this._listenersOptions);
 		window.addEventListener('offline', this._onOnlineStatusChange, this._listenersOptions);
@@ -60,8 +60,41 @@ class PersinApp extends LitElement {
 		window.removeEventListener('resize', this._onResize, this._listenersOptions);
 	}
 
-	public render() {
-		const links = [
+	private _onSectionsChange(changes: IntersectionObserverEntry[]){
+		for(const change of changes){
+			if(change.isIntersecting){
+				const id = change.target.id;
+				if(id){
+					this.currentSection = id;
+				}
+			}
+		}
+	}
+
+	async firstUpdated(){
+		const supports = await supportsWebp();
+		if(supports){
+			this.imageFormat = 'webp';
+		} else {
+			this.imageFormat = 'jpg';
+		}
+
+		this.isOnline = navigator.onLine;
+
+		const iObserverRootOpts = {
+			rootMargin: '100px',
+			threshold: 1.0
+		};
+
+		const iObserver = new IntersectionObserver(this._onSectionChange, iObserverRootOpts)
+
+		for(const section of Array.from(this.sections)){
+			iObserver.observe(section);
+		}
+	}
+
+	private get _links(){
+		return [
 			{ class: 'home', content: html`<iron-icon icon="home"></iron-icon>`},
 			{ class: 'conseil', content: 'Conseil' },
 			{ class: 'installation', content: 'Installation' },
@@ -69,11 +102,13 @@ class PersinApp extends LitElement {
 			{ class: 'assistance', content: 'Assistance' },
 			{ class: 'contact', content: 'Contact' }
 		];
+	}
 
+	public render() {
 		const websiteNavigation = html`
 			<nav>
 				<ul>
-					${links.map((link) => {
+					${this._links.map((link) => {
 						return html`
 						<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${() => this._onNavClick(link, true)}">
 							<a href="#${link.class}">
@@ -104,7 +139,7 @@ class PersinApp extends LitElement {
 				</header>
 				<section>
 					<div class="parallax-wrap">
-						<div id="home" class="home header section parallax ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+						<div id="home" class="home header section parallax ${this.imageFormat}" @click="${this._hideMobileMenu}">
 							<h3>Persin Conseil</h3>
 							<p>Conseil & Services</p>
 						</div>
@@ -112,7 +147,7 @@ class PersinApp extends LitElement {
 				</section>
 
 				<section>
-					<div class="home section text-content no-background" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+					<div class="home section text-content no-background" @click="${this._hideMobileMenu}">
 						<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
 						<h3>Notre valeur ajoutée ?</h3>
 						<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
@@ -124,7 +159,7 @@ class PersinApp extends LitElement {
 
 				<section>
 					<div class="parallax-wrap">
-						<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+						<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}" @click="${this._hideMobileMenu}">
 							<h2>Conseil</h2>
 							<p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
 							<p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
@@ -135,7 +170,7 @@ class PersinApp extends LitElement {
 					</div>
 				</section>
 				<section>
-					<div id="installation" class="installation section text-content no-background with-picture" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+					<div id="installation" class="installation section text-content no-background with-picture" @click="${this._hideMobileMenu}">
 						<div>
 							<picture>
 								<source srcset="assets/installation.webp" type="image/webp">
@@ -153,7 +188,7 @@ class PersinApp extends LitElement {
 				</section>
 				<section>
 					<div class="parallax-wrap">
-						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}" @click="${this._hideMobileMenu}">
 							<h2>Formation</h2>
 							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
 							<p>Nous offrons des formations informatiques à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
@@ -164,7 +199,7 @@ class PersinApp extends LitElement {
 					</div>
 				</section>
 				<section>
-					<div id="assistance" class="assistance section text-content no-background" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+					<div id="assistance" class="assistance section text-content no-background" @click="${this._hideMobileMenu}">
 						<div class="with-picture">
 							<div>
 								<picture>
@@ -189,7 +224,7 @@ class PersinApp extends LitElement {
 				</section>
 				<section>
 					<div class="parallax-wrap">
-						<div id="contact" class="contact section parallax grid ${this.imageFormat}" @mouseover="${this._onScroll}" @click="${this._hideMobileMenu}">
+						<div id="contact" class="contact section parallax grid ${this.imageFormat}" @click="${this._hideMobileMenu}">
 							<div>
 								<div class="logotype">
 									<picture>
@@ -216,11 +251,13 @@ class PersinApp extends LitElement {
 							</div>
 							<div>
 								${this.isOnline ? html`
-								<div class="contact-form" id="contactForm">
-									<paper-input id="nom" type="text" label="Nom" name="nom" min-length="4" required></paper-input>
-									<paper-input id="email" type="email" label="E-mail" name="email" min-length="4" required></paper-input>
-									<paper-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter required></paper-textarea>
-									<paper-button type="submit" @click="${this._doSendEmail}">Envoyer</paper-button>
+								<div class="contact-form" id="contactForm" @input=${() => {
+									this._updateFields();
+								}}>
+									<mwc-textfield id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
+									<mwc-textfield id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
+									<mwc-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter></mwc-textarea>
+									<mwc-button type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
 								</div>
 								` : html`
 								<div class="contact-form">
@@ -255,24 +292,23 @@ class PersinApp extends LitElement {
 				</footer>
 			</div>
 
-			<paper-dialog id="legal" class="legal-dialog" with-backdrop @click="${() => {
+			<mwc-dialog hide-actions heading="Mentions légales" id="legal" class="legal-dialog" @click="${() => {
 				this._hideLegal();
 			}}">
-				<h2>Mentions légales</h2>
-				<p>
-					Thibaut MATIAS 
-					<br>Entrepreneur et chef d'entreprise 
-					<br>Persin™ <abbr title="Entreprise unipersonnelle à responsabilité limitée">EURL</abbr> 
-					<br>38 quai Georges Gorse 
-					<br>92100 Boulogne-Billancourt 
-					<br>France 
-					<br><br>Tel. : +33 6 09 88 83 86 
+				<div>
+					<p>Thibaut MATIAS</p>
+					<p>Entrepreneur et chef d'entreprise</p>
+					<p>Persin™ <abbr title="Entreprise unipersonnelle à responsabilité limitée">EURL</abbr>
+					<br>38 quai Georges Gorse
+					<br>92100 Boulogne-Billancourt
+					<br>France</p>
+					<p><br>Tel. : +33 6 09 88 83 86 
 					<br><br>R.C.S : 504 629 551 Nanterre 
 					<br>SIRET : 504 629 551 00012 
 					<br>APE : 9511Z 
-					<br>N° TVA Intracommunautaire : FR62504629551 <br><br>Conformément à la LOI n° 2004-801 du 6 août 2004 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel modifiant la loi n° 78-17 du 6 janvier 1978, ce site a été déclaré auprès de la CNIL. <br>Le N° d’enregistrement CNIL est le 662531. <br>Nous vous rappelons qu’en notre qualité, nous sommes assujetties au secret professionnel dans les conditions prévues aux articles 226-13 et 226-14 du code pénal, pour tout ce qui concerne la divulgation de ces éléments d'identification personnelle ou de toute information permettant d'identifier la personne concernée. Ce secret professionnel n'est pas opposable à l'autorité judiciaire. <br>Hébergeur : OVH | 2 rue Kellermann | 59100 Roubaix | France | Tel: 08 203 203 63 n° indigo (0.118 €/min) <br>Web : <a href="http://www.persin.fr">http://www.persin.fr</a> | <a href="http://persin.fr">http://persin.fr</a> <br>Référencement du site fait par : <a href="http://www.persin.fr">http://www.persin.fr</a> <br>Les droits d'auteurs de ce site sont enregistrés devant notaire. Toute reproduction sera poursuivi devant les tribunaux.
-				</p>
-			</paper-dialog>
+					<br>N° TVA Intracommunautaire : FR62504629551 <br><br>Conformément à la LOI n° 2004-801 du 6 août 2004 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel modifiant la loi n° 78-17 du 6 janvier 1978, ce site a été déclaré auprès de la CNIL. <br>Le N° d’enregistrement CNIL est le 662531. <br>Nous vous rappelons qu’en notre qualité, nous sommes assujetties au secret professionnel dans les conditions prévues aux articles 226-13 et 226-14 du code pénal, pour tout ce qui concerne la divulgation de ces éléments d'identification personnelle ou de toute information permettant d'identifier la personne concernée. Ce secret professionnel n'est pas opposable à l'autorité judiciaire. <br>Hébergeur : OVH | 2 rue Kellermann | 59100 Roubaix | France | Tel: 08 203 203 63 n° indigo (0.118 €/min) <br>Web : <a href="http://www.persin.fr">http://www.persin.fr</a> | <a href="http://persin.fr">http://persin.fr</a> <br>Référencement du site fait par : <a href="http://www.persin.fr">http://www.persin.fr</a> <br>Les droits d'auteurs de ce site sont enregistrés devant notaire. Toute reproduction sera poursuivi devant les tribunaux.</p>
+				</div>
+			</mwc-dialog>
 		`;
 	}
 
@@ -307,67 +343,67 @@ class PersinApp extends LitElement {
 	}
 
 	private _showLegal(): void {
-		this.legal.opened = true;
+		this.legal.show();
 	}
 
 	private _hideLegal(): void {
-		this.legal.opened = false;
+		this.legal.close();
+	}
+
+	private _updateFields(){
+		let isValid = true;
+		// Check each
+		const inputs = this._inputs();
+
+		for(const input of inputs){
+			if(input.reportValidity() === false){
+				isValid = false;
+				break;
+			}
+		}
+
+		return isValid;
+	}
+
+	private _inputs(){
+		const name = this.shadowRoot.querySelector('#nom') as TextField;
+		const email = this.shadowRoot.querySelector('#email') as TextField;
+		const message = this.shadowRoot.querySelector('#message') as TextField;
+
+		return [name, email, message];
 	}
 
 	private _doSendEmail(event: Event): void {
+		const button = event.target as Button;
+
 		// Grab fields
 		const form = this.shadowRoot.querySelector('#contactForm') as HTMLDivElement;
-		const button = event.target as PaperButtonElement;
-		const name = this.shadowRoot.querySelector('#nom') as PaperInputElement;
-		const email = this.shadowRoot.querySelector('#email') as PaperInputElement;
-		const message = this.shadowRoot.querySelector('#message') as PaperTextareaElement;
-		
-		let isValid = true;
+		const isValid = this._updateFields();
+		const inputs = this._inputs();
 
-		const check = (input: PaperInputElement) => {
-			return input.validate();
-		};
-		// Check each
-		const inputs = [name, email, message];
-		inputs.forEach((input: PaperInputElement) => check(input) ? input.invalid = false : input.invalid = true);
-		inputs.forEach((input) => {
-			if(input.invalid && isValid){
-				isValid = false;
-			}
-		});
-		
 		if(isValid){
 			// disable everyone
 			button.disabled = true;
 			inputs.forEach((input) => input.disabled = true);
 
 			const formData = new FormData();
-			formData.append('nom', name.value);
-			formData.append('email', email.value);
-			formData.append('message', message.value);
+
+			for(const field of inputs){
+				formData.append(field.id, field.value);
+			}
 
 			// @tool: uncomment to disable mail sending
-			// if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
+			if(location.hostname.indexOf('localhost') !== -1) { form.classList.add('sended'); return; }
 
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
+			xhr.open('POST', 'https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
 			xhr.onreadystatechange = () => {
 				if (xhr.status === 200) {
 					form.classList.add('sended');
 				}
 			};
 			xhr.send(formData);
-
-		}
-	}
-
-	private _onScroll(event: Event){
-		const target = event.target as HTMLDivElement;
-		if(target && target.classList 
-			&& target.classList.contains('section') 
-			&& target.classList[0] !== this.currentSection){ 
-				this.currentSection = target.classList[0] 
 		}
 	}
 
@@ -393,7 +429,7 @@ class PersinApp extends LitElement {
 		this.mobileMenu.classList.add('hidden');
 	}
 
-	private get legal(): PaperDialogElement {
+	private get legal(): Dialog {
 		return this.shadowRoot.querySelector('#legal');
 	}
 

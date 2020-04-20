@@ -1,4 +1,4 @@
-import { html } from '@polymer/lit-element';
+import { html } from 'lit-element';
 
 const PERSIN_GREEN = '#42BB74';
 const PERSIN_DARK_GREEN = '#278e51';
@@ -24,8 +24,8 @@ const styles = html`
     /* 
       Generics 
     */
-    paper-input, paper-textarea { --paper-input-container-focus-color: ${PERSIN_GREEN}}
-    paper-dialog { overflow-y: scroll }
+    mwc-textfield, mwc-textarea, mwc-button { --mdc-theme-primary: ${PERSIN_GREEN}}
+    mwc-dialog { overflow-y: scroll }
     picture {pointer-events: none }
     section { position: relative; width: 100%; height: 100% }
     .app {
@@ -66,18 +66,25 @@ const styles = html`
     /*
       Menu 
     */
-    .app-header .menu.desktop-menu { display: none }
+    .app-header .menu.desktop-menu { display: none; height: 100%; }
     .app-header .menu.mobile-menu { display: block; margin: 1em; }
     .app-header .desktop-menu nav { padding-right: 30px }
 
     .app-header .desktop-menu nav ul {
       margin: 0;
+      height: 100%;
       padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
     }
 
     .app-header .desktop-menu nav ul li {
-      display: inline-block;
-      padding: 15px 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
       list-style: none;
       transition: background-color .3s;
     }
@@ -218,22 +225,22 @@ const styles = html`
 
     .contact.grid .logotype h4 { margin-left: 10px }
 
-    .contact.grid paper-input, 
-    .contact.grid paper-textarea,  
-    .contact.grid paper-button {
+    .contact.grid mwc-textfield, 
+    .contact.grid mwc-textarea,  
+    .contact.grid mwc-button {
       background-color: rgba(255, 255, 255, .8);
       text-align: left;
       padding: .5em;
       border-radius: 2px;
     }
     
-    .contact.grid paper-button {
+    .contact.grid mwc-button {
       margin-top: 1em;
       color: black;
       align-self: flex-end;
     }
 
-    .contact.grid paper-button[disabled] { color: grey }
+    .contact.grid mwc-button[disabled] { color: grey }
 
     .contact.grid .contact-form {
       display: flex;
@@ -294,7 +301,10 @@ const styles = html`
     }
 
     .legal-dialog {
+      --mdc-dialog-min-width: 90vw;
+      position: fixed;
       margin-top: 80px;
+      z-index: 999;
     }
 
     .mentions { cursor: pointer; }
