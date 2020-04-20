@@ -94,7 +94,7 @@ const styles = html`
     }
 
     .app-header .desktop-menu nav ul li a {
-      color: white;
+      color: black;
       padding: 0 10px;
       outline: none;
       text-decoration: none;
