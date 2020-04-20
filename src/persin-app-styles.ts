@@ -99,10 +99,6 @@ const styles = html`
       text-decoration: none;
     }
 
-    .app-header .desktop-menu nav ul li a mwc-icon {
-      margin-top: -6px;
-    }
-
     .app-header .desktop-menu nav ul li:hover, .app-header nav ul li.active {
       background-color: ${PERSIN_DARK_GREEN};
     }
