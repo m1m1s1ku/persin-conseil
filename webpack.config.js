@@ -132,10 +132,10 @@ const developmentConfig = merge([
 
 const productionConfig = merge([
   {
-    devtool: 'nosources-source-map',
+    devtool: 'eval',
     plugins: [
       new CleanWebpackPlugin(),
-      new CopyWebpackPlugin([...polyfills, ...assets]),
+      new CopyWebpackPlugin([...polyfills, ...assets], {}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE,
         minify: {
