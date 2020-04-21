@@ -173,7 +173,7 @@ export class PersinApp extends LitElement {
 							<picture>
 								<source srcset="assets/installation.webp" type="image/webp">
 								<source srcset="assets/installation.jpg" type="image/jpeg"> 
-								<img class="full-pic" src="assets/installation.jpg" alt="Installation">
+								<img class="full-pic" src="assets/installation.jpg" width="455" height="249" alt="Installation">
 							</picture>
 						</div>
 						<div class="pad-thin">
@@ -203,7 +203,7 @@ export class PersinApp extends LitElement {
 								<picture>
 									<source srcset="assets/assistance.webp" type="image/webp">
 									<source srcset="assets/assistance.jpg" type="image/jpeg"> 
-									<img class="full-pic" src="assets/assistance.jpg" alt="Assistance">
+									<img class="full-pic" src="assets/assistance.jpg" width="455" height="255" alt="Assistance">
 								</picture>
 							</div>
 							<div class="full-width">
@@ -228,7 +228,7 @@ export class PersinApp extends LitElement {
 									<picture>
 										<source srcset="assets/persin.webp" type="image/webp">
 										<source srcset="assets/persin.jpg" type="image/jpeg"> 
-										<img class="persin__logo" src="assets/persin.jpg" alt="Persin">
+										<img class="persin__logo" src="assets/persin.jpg" width="100" height="100" alt="Persin">
 									</picture>
 									<h4>Conseil & Services</h4>
 								</div>
