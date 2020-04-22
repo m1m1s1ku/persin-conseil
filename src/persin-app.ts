@@ -519,7 +519,10 @@ export class PersinApp extends LitElement {
 		
 		this.currentSection = link.class;
 
-		const section = this.querySelector(`#${link.class}`) as HTMLDivElement;
+		let section = this.querySelector(`#${link.class}`) as HTMLDivElement;
+		if(!section){
+			section = this.shadowRoot.querySelector(`#${link.class}`) as HTMLDivElement;
+		}
 		this._scrollTo(section);
 
 		if(fromBurger){
