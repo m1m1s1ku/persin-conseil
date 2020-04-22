@@ -37,9 +37,6 @@ export class PersinApp extends LitElement {
 	@property({type: Object})
 	private isOnline: boolean;
 
-	@queryAll('.section')
-	private sections: NodeListOf<HTMLDivElement>;
-
 	@query('#legal')
 	private legal: Dialog;
 
@@ -91,7 +88,10 @@ export class PersinApp extends LitElement {
 
 	// NOTE : never update a prop into that ! (re-render)
 	public async firstUpdated(){
-		for(const section of Array.from(this.sections)){
+		const sections = Array.from(this.querySelectorAll('.section'));
+		const shadowSections = Array.from(this.shadowRoot.querySelectorAll('.section'));
+
+		for(const section of [...sections, ...shadowSections]){
 			this._sectionsObserver.observe(section);
 		}
 
