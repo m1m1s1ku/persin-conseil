@@ -191,27 +191,32 @@
     }
     </style>
     <noscript>
-      <style>
-      .logotype { user-select: none; pointer-events: none;}
-      body { background: #656766; height: 100vh; margin: 0; color: #dedede; }
-      main { display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 2em; }
-      .flex-error-no-js { display: flex; flex-direction: column; align-items: flex-end; position: absolute; bottom: 20px; right: 0; }
-      h3 { margin: .8em 3rem; font: 1.8em IBM Plex Sans; }
-      p, a { color: #dedede; display: inline-block; margin: .2em 3rem; font: 1.5em IBM Plex Sans; text-decoration: none; }
-      </style>
-      <main>
-        <div class="logotype">
-          <img class="persin__logo" width="100" height="100" src="/assets/persin.jpg" alt="Persin">
-          <h4>Conseil & Services</h4>
+        <style>
+          section {
+            text-align: center;
+            height: auto;
+          }
+          .no-script-menu {
+            font-family: 'IBM Plex Sans', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0 1em 5px 1em;
+          }
+          .no-script-menu a {
+            text-decoration: none;
+            color: black;
+          }
+          .no-script-menu a:hover {
+            text-decoration: none;
+            color:rgba(0,0,0,.6);
+          }
+        </style>
+        <div class="no-script-menu">
+          <h3>Ce site repose sur JavaScript pour s'afficher d'une manière optimale, merci de l'activer.</h3>
+          <div>Contact : <a href="tel:0033609888386" itemprop="telephone">+33 6 09 88 83 86</a> | <a href="mailto:contact@persin.fr" itemprop="email">contact@persin.fr</a> | <a target="_blank" rel="noopener" href="https://www.google.com/maps/place/38+Quai+Georges+Gorse,+92100+Boulogne-Billancourt/data=!4m2!3m1!1s0x47e67af13b2927a9:0x172eee5c2e77cf44?ved=2ahUKEwi1l_3996XfAhVKbBoKHZqIA5UQ8gEwAHoECAAQAQ">38 quai Georges Gorse, 92100 Boulogne-Billancourt</a></div>
         </div>
-        <h3>Ce site repose sur JavaScript afin de s'afficher.</h3>
-        <h3>Merci de nous contacter par téléphone ou via un autre ordinateur.</h3>
-        <div class="flex-error-no-js">
-          <a href="tel:0033609888386" itemprop="telephone">+33 6 09 88 83 86</a> 
-          <a href="mailto:contact@persin.fr" itemprop="email">contact@persin.fr</a> 
-          <a target="_blank" rel="noopener" href="https://www.google.com/maps/place/38+Quai+Georges+Gorse,+92100+Boulogne-Billancourt/data=!4m2!3m1!1s0x47e67af13b2927a9:0x172eee5c2e77cf44?ved=2ahUKEwi1l_3996XfAhVKbBoKHZqIA5UQ8gEwAHoECAAQAQ">38 quai Georges Gorse, 92100 Boulogne-Billancourt</a>
-        </div>
-      </main>
     </noscript>
   </head>
   <body>
