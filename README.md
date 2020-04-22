@@ -1,26 +1,14 @@
-## Persin
+# Persin Conseil
 
-### npm start
+[Website](https://persin.fr)
 
-Start `webpack-dev-server` on localhost `http://127.0.0.1:3000`:
+## Meta
 
-```sh
-npm run start
-```
+* **State:** Published | Maintenance
+* **Production:** [https://persin.fr](https://persin.fr/)
+* **GitHub:** [https://github.com/ghostfly/persin-conseil](https://github.com/ghostfly/persin-conseil)
+* **Point People:** [@ghostfly](https://github.com/ghostfly)
 
-### npm test
+## License
 
-Run tests:
-
-```sh
-npm run test
-```
-
-### npm build
-
-Run the production build:
-
-```sh
-npm run build
-node server.js
-```
+&copy; Persin - 2020
