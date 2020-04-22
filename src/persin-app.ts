@@ -18,6 +18,11 @@ import '@material/mwc-button';
 import '@material/mwc-textfield';
 import '@material/mwc-textarea';
 
+enum ImageFormats {
+	webp = 'webp',
+	jpg = 'jpg'
+};
+
 @customElement('persin-app')
 export class PersinApp extends LitElement {
 	@property({type: String})
@@ -25,6 +30,9 @@ export class PersinApp extends LitElement {
 
 	@property({type: String})
 	private imageFormat: string;
+
+	@queryAll('.image-format')
+	private _switchables: NodeListOf<HTMLDivElement>;
 
 	@property({type: Object})
 	private isOnline: boolean;
@@ -54,13 +62,7 @@ export class PersinApp extends LitElement {
 	public async connectedCallback(){
 		super.connectedCallback();
 
-		const supports = await supportsWebp();
-		if(supports){
-			this.imageFormat = 'webp';
-		} else {
-			this.imageFormat = 'jpg';
-		}
-
+		this.imageFormat = await supportsWebp() ? ImageFormats.webp : ImageFormats.jpg;
 		this.isOnline = navigator.onLine;
 
 		window.addEventListener('online',  this._onlineStatusChange, this._listenersOptions);
@@ -92,6 +94,15 @@ export class PersinApp extends LitElement {
 		for(const section of Array.from(this.sections)){
 			this._sectionsObserver.observe(section);
 		}
+
+		if(this.imageFormat === ImageFormats.webp){
+			return;
+		}
+
+		for(const switchable of Array.from(this._switchables)){
+			switchable.classList.remove(ImageFormats.webp);
+			switchable.classList.remove(ImageFormats.jpg);
+		}
 	}
 
 	private get _links(){
@@ -105,11 +116,6 @@ export class PersinApp extends LitElement {
 		];
 	}
 
-	// NOTE : LightDOM for SEO testing reasons
-	public createRenderRoot(){
-		return this;
-	}
-
 	private get _nav(){
 		return html`<nav><ul>${this._links.map((link) => html`
 		<li class="${link.class}${link.class === this.currentSection ? ' active' : ''}" @click="${(e) => this._onNavClick(e, link, true)}">
@@ -121,6 +127,277 @@ export class PersinApp extends LitElement {
 
 	public render() {
 		return html`
+			<style>
+			section { position: relative; width: 100%; height: 100% }
+			.section.text-content h2 {
+				align-self: flex-start;
+				color: var(--persin-dark-green);
+			}
+
+			.section.text-content.white p {
+				color: white;
+			}
+			.contact.webp { background-image: url('./assets/parallax/contact.webp');}
+    		.contact.jpg { background-image: url('./assets/parallax/contact.jpg');}
+
+			.app {
+				text-align: center;
+				font-family: 'IBM Plex Sans', sans-serif;
+				overflow: hidden;
+			}
+
+			.app-header {
+				position: fixed;
+				width: 100%;
+				z-index: 999;
+				background-color: var(--persin-green);
+				color: white;
+				height: 50px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+			}
+
+			.app-header {
+				user-select: none;
+			}
+
+			.app-header h1 {
+				color: black;
+				font-size: 1.1em;
+				font-weight: bold;
+				cursor: pointer;
+				outline: none;
+				text-transform: uppercase;
+				padding: 0 40px;
+				margin: 0;
+				margin-top: 2px;
+			}
+
+			.app-header .menu.desktop-menu { display: none; height: 100%; }
+			.app-header .menu.mobile-menu { display: block; margin: 1em; }
+			.app-header .menu.mobile-menu > mwc-icon-button { color: black; }
+			.app-header .desktop-menu nav { padding-right: 30px }
+		
+			.app-header .desktop-menu nav ul {
+				margin: 0;
+				height: 100%;
+				padding: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: row;
+			}
+		
+			.app-header .desktop-menu nav ul li {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				height: 100%;
+				list-style: none;
+				transition: background-color .3s;
+				cursor: pointer;
+			}
+		
+			.app-header .desktop-menu nav ul li a {
+				color: black;
+				padding: 0 10px;
+				outline: none;
+				text-decoration: none;
+			}
+		
+			.app-header .desktop-menu nav ul li:hover, .app-header nav ul li.active {
+				background-color: var(--persin-dark-green);
+			}
+		
+			.app-header .mobile-popover {
+				display: block;
+				position: absolute;
+				width: 100%;
+				right: 0;
+				transition:visibility 0.3s linear, opacity 0.3s linear;
+				top: 50px;
+			}
+		
+			.mobile-popover.hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.mobile-popover.visible {
+				opacity: 1;
+			}
+		
+			.app-header .mobile-popover nav ul li {
+				list-style: none;
+				padding: .5em;
+			}
+		
+			.app-header .mobile-popover nav ul li a {
+				color: white;
+				text-decoration: none;
+				outline: none;
+			}
+		
+			.app-header .mobile-popover nav ul {
+				background-color: rgba(66, 187, 116, .9);
+				margin: 0;
+				padding: .5em;
+			}
+
+			@media(min-width: 700px){
+				.app-header .menu.desktop-menu { display: flex }
+				.app-header .menu.mobile-menu { display: none }
+				.app-header .mobile-popover { pointer-events: none }
+			}
+
+			/* 
+			Footer 
+			*/
+			footer {
+				height: 125px;
+			}
+
+			footer.grid {
+				display: flex;
+				justify-content: space-around;
+				flex-direction: column;
+			}
+
+			footer.grid > div {
+				display: flex;
+				align-items: center;
+			}
+
+			footer.grid > div.copyright, 
+			footer.grid > div.copyright a {
+				user-select: none;
+				color: black;
+				text-decoration: none;
+			}
+
+			footer.grid > div.copyright span {
+				margin: 0 2px;
+			}
+
+			footer.grid > div.social-container {
+				justify-content: center;
+			}
+				
+			footer.grid a {
+				margin: 0 .5em;
+				fill: white;
+				height: 24px;
+				width: 24px;
+				transition: fill .3s;
+			}
+
+			footer.grid a:hover {
+				fill: #CCC;
+			}
+
+			.legal-dialog {
+				--mdc-dialog-min-width: 90vw;
+				position: fixed;
+				margin-top: 80px;
+				z-index: 999;
+			}
+
+			footer.grid .mentions { cursor: pointer; margin: 0 }
+
+			@media (min-width: 400px){ 
+				footer.grid { flex-direction: row } 
+			}
+
+			/* 
+			Contact 
+			*/
+			.contact.grid {
+				padding: 5em;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.contact.grid > div {
+				display: flex;
+				flex-direction: column;
+				color: white;
+				justify-content: center;
+				font-size: 1.2em;
+				flex: 1 0 5em;
+			}
+
+			.contact.grid > div a {
+				text-decoration: none;
+				color: white;
+				transition: color .3s;
+			}
+
+			.contact.grid > div a:hover { color: #CCC }
+
+			.contact.grid .logotype {
+				display: flex;
+				align-items: center;
+				align-self: center;
+				user-select: none;
+				margin: 2.5em;
+			}
+
+			.contact.grid .logotype h4 { margin-left: 10px }
+
+			.contact.grid mwc-textfield, 
+			.contact.grid mwc-textarea,  
+			.contact.grid mwc-button {
+				background-color: rgba(255, 255, 255, .8);
+				text-align: left;
+				padding: .5em;
+				border-radius: 2px;
+			}
+				
+			.contact.grid mwc-button {
+				margin-top: 1em;
+				color: black;
+				align-self: flex-end;
+			}
+
+			.contact.grid mwc-button[disabled] { color: grey }
+
+			.contact.grid .contact-form {
+				display: flex;
+				flex-direction: column;
+				margin: 2em 0;
+			}
+
+			.contact.grid .contact-form:after {
+				content: 'Le mail a été envoyé avec succès !';
+				opacity: 0;
+				transition: opacity .3s;
+				position: absolute;
+				color: black;
+				display: flex;
+				align-self: center;
+				margin-top: 100px;
+			}
+
+			.contact.grid .contact-form.sended:after {
+				opacity: 1;
+			}
+
+			.contact-infos > div {
+				margin: 1.5em 0;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.contact-infos > div > mwc-icon {
+				margin: 0 .2em;
+			}
+
+			mwc-textfield, mwc-textarea, mwc-button { --mdc-theme-primary: var(--persin-green);}
+			mwc-dialog { overflow-y: scroll }
+			</style>
 			<div id="persin-app" class="app">
 				<header class="app-header">
 					<h1 @click="${(e: Event) => {this._onNavClick(e, {class: 'home'}, false)}}">Persin Conseil</h1>
@@ -135,134 +412,49 @@ export class PersinApp extends LitElement {
 					</div>
 				</header>
 				<main @click="${this._hideMobileMenu}">
-				<section>
-					<div class="parallax-wrap">
-						<div id="home" class="home header section parallax ${this.imageFormat}">
-							<h3>Persin Conseil</h3>
-							<p>Conseil & Services</p>
-						</div>
-					</div>
-				</section>
-
-				<section>
-					<div class="home section text-content no-background">
-						<p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
-						<h3>Notre valeur ajoutée ?</h3>
-						<p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
-						<p>Compétitive sur le plan des tarifs, Persin Conseil assure une intervention dans des délais records complétée par un programme d'assistance à distance. </p>
-						<p>Nous nous préoccupons de nos clients tant sur le plan technique que sur le plan humain. Ainsi, après chaque intervention nous vous appelons afin de nous assurer de votre entière satisfaction. </p>
-						<h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
-					</div>
-				</section>
-
-				<section>
-					<div class="parallax-wrap">
-						<div id="conseil" class="conseil section text-content parallax white ${this.imageFormat}">
-							<h2>Conseil</h2>
-							<p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
-							<p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
-							<p>Nous mobilisons nos consultants, ingénieurs et chefs de projets pour proposer une expertise technique et commerciale via la conception et la création de sites internet et la mise en œuvre d'un référencement performant afin d'offrir à nos partenaires une visibilité optimale. </p>
-							<p class="start">Bénéficiez de formations personnalisées pour vos employés aux techniques bureautiques et informatiques pour un profit technique et temporel optimal. </p>
-							<p>Votre activité se développe, vos besoins aussi. Nos conseils sont évolutifs et vous accompagneront tout au long de la vie de votre entreprise. N'hésitez pas à prendre contact avec notre service commercial afin d'obtenir des compléments d'informations.</p>
-						</div>
-					</div>
-				</section>
-				<section>
-					<div id="installation" class="installation section text-content no-background with-picture">
-						<div>
-							<picture>
-								<source srcset="assets/installation.webp" type="image/webp">
-								<source srcset="assets/installation.jpg" type="image/jpeg"> 
-								<img class="full-pic" src="assets/installation.jpg" alt="Installation">
-							</picture>
-						</div>
-						<div class="pad-thin">
-							<h2>Installation</h2>
-							<p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à portée de main.</p> 
-							<p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédiée à votre activité.</p> 
-							<p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisée face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
-						</div>
-					</div>
-				</section>
-				<section>
-					<div class="parallax-wrap">
-						<div id="formation" class="formation section parallax text-content white ${this.imageFormat}">
-							<h2>Formation</h2>
-							<p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
-							<p>Nous offrons des formations informatiques à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
-							<p>Notre transfert de compétences s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
-							<p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
-							<p class="start">Consultez-nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
-						</div>
-					</div>
-				</section>
-				<section>
-					<div id="assistance" class="assistance section text-content no-background">
-						<div class="with-picture">
-							<div>
-								<picture>
-									<source srcset="assets/assistance.webp" type="image/webp">
-									<source srcset="assets/assistance.jpg" type="image/jpeg"> 
-									<img class="full-pic" src="assets/assistance.jpg" alt="Assistance">
-								</picture>
-							</div>
-							<div class="full-width">
-								<h2>Assistance</h2>
-								<p>Nos prestataires vous offrent une disponibilité totale sur site 7j/7 et se déplacent gratuitement.</p>
-								<p>Sur votre lieu professionnel ou personnel notre équipe se déplace au plus près de vous. Nous vous assistons également à distance à travers un système de partage d'écran pour remédier à tout problème et à toute interrogation que vous pourriez rencontrer. </p>
-								<p>Nous restons à votre disposition toute la semaine ainsi que les jours fériés pour vous guider et vous assister au quotidien. Une difficulté ou une simple question, nos conseillers répondent professionnellement et à tout instant à vos attentes.</p>
-							</div>
-						</div>
-						<div class="full-width">
-							<p>Suite à chaque intervention, nos équipes établissent votre fiche client personnelle regroupant les différentes prestations effectuées, afin de pouvoir vous répondre en parfaite connaissance de votre situation et des différentes installations dont vous bénéficiez. </p>
-							<p>Nos équipes sont prêtes à vous assister en urgence et vous proposent une intervention dans les 3 heures maximum sur un simple demande de votre part. </p>
-							<p>Ainsi, nous résolvons avec rapidité et efficacité, l'ensemble de vos problématiques.</p>
-						</div>
-					</div>
-				</section>
-				<section>
-					<div class="parallax-wrap">
-						<div id="contact" class="contact section parallax grid ${this.imageFormat}">
-							<div>
-								<div class="logotype">
-									<picture>
-										<source srcset="assets/persin.webp" type="image/webp">
-										<source srcset="assets/persin.jpg" type="image/jpeg"> 
-										<img class="persin__logo" src="assets/persin.jpg" width="100" height="100" alt="Persin">
-									</picture>
-									<h4>Conseil & Services</h4>
-								</div>
-								<div class="contact-infos">
-									<div class="phone">
-										<mwc-icon>phone</mwc-icon>
-										<a href="tel:0033609888386" itemprop="telephone">+33 6 09 88 83 86</a> 
+					<slot></slot>
+					<section>
+						<div class="parallax-wrap">
+							<div id="contact" class="contact section parallax grid image-format ${this.imageFormat}">
+								<div>
+									<div class="logotype">
+										<picture>
+											<source srcset="assets/persin.webp" type="image/webp">
+											<source srcset="assets/persin.jpg" type="image/jpeg"> 
+											<img class="persin__logo" src="assets/persin.jpg" width="100" height="100" alt="Persin">
+										</picture>
+										<h4>Conseil & Services</h4>
 									</div>
-									<div>
-										<mwc-icon>mail</mwc-icon>
-										<a href="mailto:contact@persin.fr" itemprop="email">contact@persin.fr</a> 
-									</div>
-									<div>
-										<mwc-icon>home</mwc-icon>
-										<a target="_blank" rel="noopener" href="https://www.google.com/maps/place/38+Quai+Georges+Gorse,+92100+Boulogne-Billancourt/data=!4m2!3m1!1s0x47e67af13b2927a9:0x172eee5c2e77cf44?ved=2ahUKEwi1l_3996XfAhVKbBoKHZqIA5UQ8gEwAHoECAAQAQ">38 quai Georges Gorse, 92100 Boulogne-Billancourt</a>
+									<div class="contact-infos">
+										<div class="phone">
+											<mwc-icon>phone</mwc-icon>
+											<a href="tel:0033609888386" itemprop="telephone">+33 6 09 88 83 86</a> 
+										</div>
+										<div>
+											<mwc-icon>mail</mwc-icon>
+											<a href="mailto:contact@persin.fr" itemprop="email">contact@persin.fr</a> 
+										</div>
+										<div>
+											<mwc-icon>home</mwc-icon>
+											<a target="_blank" rel="noopener" href="https://www.google.com/maps/place/38+Quai+Georges+Gorse,+92100+Boulogne-Billancourt/data=!4m2!3m1!1s0x47e67af13b2927a9:0x172eee5c2e77cf44?ved=2ahUKEwi1l_3996XfAhVKbBoKHZqIA5UQ8gEwAHoECAAQAQ">38 quai Georges Gorse, 92100 Boulogne-Billancourt</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div>
-								${this.isOnline ? html`
-								<div class="contact-form" id="contactForm" @input=${() => {
-									this._updateFields();
-								}}>
-									<mwc-textfield autocomplete="name" id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
-									<mwc-textfield autocomplete="email" id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
-									<mwc-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter></mwc-textarea>
-									<mwc-button disabled id="sendmail" type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
-								</div>
-								` : html`
-								<div class="contact-form">
-									Merci de nous contacter par téléphone, la connexion internet n'est pas disponible.
-								</div>
-								`}
-
+								<div>
+									${this.isOnline ? html`
+									<div class="contact-form" id="contactForm" @input=${() => {
+										this._updateFields();
+									}}>
+										<mwc-textfield autocomplete="name" id="nom" type="text" label="Nom" name="nom" min-length="4" required></mwc-textfield>
+										<mwc-textfield autocomplete="email" id="email" type="email" label="E-mail" name="email" min-length="4" required></mwc-textfield>
+										<mwc-textarea id="message" type="text" label="Message" name="message" min-length="4" char-counter></mwc-textarea>
+										<mwc-button disabled id="sendmail" type="submit" @click="${this._doSendEmail}" label="Envoyer"></mwc-button>
+									</div>
+									` : html`
+									<div class="contact-form">
+										Merci de nous contacter par téléphone, la connexion internet n'est pas disponible.
+									</div>
+									`}
 							</div>
 						</div>
 					</div>
@@ -366,19 +558,23 @@ export class PersinApp extends LitElement {
 		return isValid;
 	}
 
-	private _inputs(){
-		const name = this.querySelector('#nom') as TextField;
-		const email = this.querySelector('#email') as TextField;
-		const message = this.querySelector('#message') as TextField;
+	@query('#nom')
+	private _name: TextField
+	@query('#email')
+	private _email: TextField
+	@query('#message')
+	private _message: TextField
+	@query('#contactForm')
+	private _form: TextField
 
-		return [name, email, message];
+	private _inputs(){
+		return [this._name, this._email, this._message];
 	}
 
 	private _doSendEmail(event: Event): void {
 		const button = event.target as Button;
 
 		// Grab fields
-		const form = this.querySelector('#contactForm') as HTMLDivElement;
 		const isValid = this._updateFields();
 		const inputs = this._inputs();
 
@@ -401,7 +597,7 @@ export class PersinApp extends LitElement {
 			xhr.open('POST', 'https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
 			xhr.onreadystatechange = () => {
 				if (xhr.status === 200) {
-					form.classList.add('sended');
+					this._form.classList.add('sended');
 				}
 			};
 			xhr.send(formData);

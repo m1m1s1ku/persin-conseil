@@ -93,120 +93,8 @@
     .formation.webp { background-image: url('./assets/parallax/formation.webp');}
     .formation.jpg { background-image: url('./assets/parallax/formation.jpg');}
 
-    .contact.webp { background-image: url('./assets/parallax/contact.webp');}
-    .contact.jpg { background-image: url('./assets/parallax/contact.jpg');}
-
-    mwc-textfield, mwc-textarea, mwc-button { --mdc-theme-primary: var(--persin-green);}
-    mwc-dialog { overflow-y: scroll }
     picture {pointer-events: none }
     section { position: relative; width: 100%; height: 100% }
-    .app {
-      text-align: center;
-      font-family: 'IBM Plex Sans', sans-serif;
-      overflow: hidden;
-    }
-
-    .app-header {
-      position: fixed;
-      width: 100%;
-      z-index: 999;
-      background-color: var(--persin-green);
-      color: white;
-      height: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
-    }
-
-    .app-header {
-      user-select: none;
-    }
-
-    .app-header h1 {
-      color: black;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      outline: none;
-      text-transform: uppercase;
-      padding: 0 40px;
-      margin: 0;
-      margin-top: 2px;
-    }
-
-    /*
-      Menu 
-    */
-    .app-header .menu.desktop-menu { display: none; height: 100%; }
-    .app-header .menu.mobile-menu { display: block; margin: 1em; }
-    .app-header .menu.mobile-menu > mwc-icon-button { color: black; }
-    .app-header .desktop-menu nav { padding-right: 30px }
-
-    .app-header .desktop-menu nav ul {
-      margin: 0;
-      height: 100%;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: row;
-    }
-
-    .app-header .desktop-menu nav ul li {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      height: 100%;
-      list-style: none;
-      transition: background-color .3s;
-      cursor: pointer;
-    }
-
-    .app-header .desktop-menu nav ul li a {
-      color: black;
-      padding: 0 10px;
-      outline: none;
-      text-decoration: none;
-    }
-
-    .app-header .desktop-menu nav ul li:hover, .app-header nav ul li.active {
-      background-color: var(--persin-dark-green);
-    }
-
-    .app-header .mobile-popover {
-      display: block;
-      position: absolute;
-      width: 100%;
-      right: 0;
-      transition:visibility 0.3s linear, opacity 0.3s linear;
-      top: 50px;
-    }
-
-    .mobile-popover.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .mobile-popover.visible {
-      opacity: 1;
-    }
-
-    .app-header .mobile-popover nav ul li {
-      list-style: none;
-      padding: .5em;
-    }
-
-    .app-header .mobile-popover nav ul li a {
-      color: white;
-      text-decoration: none;
-      outline: none;
-    }
-
-    .app-header .mobile-popover nav ul {
-      background-color: rgba(66, 187, 116, .9);
-      margin: 0;
-      padding: .5em;
-    }
 
     /* 
       Effects 
@@ -260,145 +148,6 @@
     .text-content h3 { text-align: justify }
 
     /* 
-      Contact 
-    */
-    .contact.grid {
-      padding: 5em;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .contact.grid > div {
-      display: flex;
-      flex-direction: column;
-      color: white;
-      justify-content: center;
-      font-size: 1.2em;
-      flex: 1 0 5em;
-    }
-
-    .contact.grid > div a {
-      text-decoration: none;
-      color: white;
-      transition: color .3s;
-    }
-
-    .contact.grid > div a:hover { color: #CCC }
-
-    .contact.grid .logotype {
-      display: flex;
-      align-items: center;
-      align-self: center;
-      user-select: none;
-      margin: 2.5em;
-    }
-
-    .contact.grid .logotype h4 { margin-left: 10px }
-
-    .contact.grid mwc-textfield, 
-    .contact.grid mwc-textarea,  
-    .contact.grid mwc-button {
-      background-color: rgba(255, 255, 255, .8);
-      text-align: left;
-      padding: .5em;
-      border-radius: 2px;
-    }
-    
-    .contact.grid mwc-button {
-      margin-top: 1em;
-      color: black;
-      align-self: flex-end;
-    }
-
-    .contact.grid mwc-button[disabled] { color: grey }
-
-    .contact.grid .contact-form {
-      display: flex;
-      flex-direction: column;
-      margin: 2em 0;
-    }
-
-    .contact.grid .contact-form:after {
-      content: 'Le mail a été envoyé avec succès !';
-      opacity: 0;
-      transition: opacity .3s;
-      position: absolute;
-      color: black;
-      display: flex;
-      align-self: center;
-      margin-top: 100px;
-    }
-
-    .contact.grid .contact-form.sended:after {
-      opacity: 1;
-    }
-
-    .contact-infos > div {
-      margin: 1.5em 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .contact-infos > div > mwc-icon {
-      margin: 0 .2em;
-    }
-    /* 
-      Footer 
-    */
-    footer {
-      height: 125px;
-    }
-
-    footer.grid {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: column;
-    }
-
-    footer.grid > div {
-      display: flex;
-      align-items: center;
-    }
-
-    footer.grid > div.copyright, 
-    footer.grid > div.copyright a {
-      user-select: none;
-      color: black;
-      text-decoration: none;
-    }
-
-    footer.grid > div.copyright span {
-      margin: 0 2px;
-    }
-
-    footer.grid > div.social-container {
-      justify-content: center;
-    }
-    
-    footer.grid a {
-      margin: 0 .5em;
-      fill: white;
-      height: 24px;
-      width: 24px;
-      transition: fill .3s;
-    }
-
-    footer.grid a:hover {
-      fill: #CCC;
-    }
-
-    .legal-dialog {
-      --mdc-dialog-min-width: 90vw;
-      position: fixed;
-      margin-top: 80px;
-      z-index: 999;
-    }
-
-    footer.grid .mentions { cursor: pointer; margin: 0 }
-
-    /* 
       Helpers 
     */
     .full-pic {
@@ -424,15 +173,9 @@
       .text-content { display: block }
     }
 
-    @media (min-width: 400px){ 
-      footer.grid { flex-direction: row } 
-    }
     @media(min-width: 700px){
       .with-picture { flex-direction: row }
       .with-picture .full-width { padding: 0 0 0 2.5em;} 
-      .app-header .menu.desktop-menu { display: flex }
-      .app-header .menu.mobile-menu { display: none }
-      .app-header .mobile-popover { pointer-events: none }
     }
 
     @supports (-webkit-overflow-scrolling: touch) {
@@ -474,7 +217,93 @@
   <body>
     <script src="./vendor/webcomponents-loader.js" defer></script>
     <script src="./vendor/custom-elements-es5-adapter.js" defer></script>
-    <persin-app></persin-app>
+    <persin-app>
+        <section>
+          <div class="parallax-wrap">
+            <div id="home" class="home header section parallax image-format webp">
+              <h3>Persin Conseil</h3>
+              <p>Conseil & Services</p>
+            </div>
+          </div>
+        </section>
+  
+        <section>
+          <div class="home section text-content no-background">
+            <p>Le développement croissant de l'outil informatique et des possibilités exponentielles qu'il apporte est une réalité commune à chaque entreprise et particulier. Persin Conseil se démarque de toutes les sociétés de dépannage et de maintenance présentes sur le marché.</p>
+            <h3>Notre valeur ajoutée ?</h3>
+            <p>Fort d'un dynamisme et d'une polyvalence absolue, Persin Conseil répond à l'ensemble de vos besoins informatiques : assistance, maintenance, formation, création de sites, matériel, logiciels.</p>
+            <p>Compétitive sur le plan des tarifs, Persin Conseil assure une intervention dans des délais records complétée par un programme d'assistance à distance. </p>
+            <p>Nous nous préoccupons de nos clients tant sur le plan technique que sur le plan humain. Ainsi, après chaque intervention nous vous appelons afin de nous assurer de votre entière satisfaction. </p>
+            <h3>Et c'est là notre seule ambition : vous satisfaire.</h3>
+          </div>
+        </section>
+  
+        <section>
+          <div class="parallax-wrap">
+            <div id="conseil" class="conseil section text-content parallax white image-format webp">
+              <h2>Conseil</h2>
+              <p class="retreat start">Spécialisée en conseil et ingénierie informatique, Persin Conseil intervient au cœur du Système d'Information de ses clients.</p>
+              <p class="retreat start">Notre équipe conçoit et met en œuvre des solutions personnalisées et transversales allant de la conception de l'architecture réseau à l'économie d'énergie par le choix du matériel le plus adapté, en passant par la sauvegarde des données sur site ou externalisée.</p>
+              <p>Nous mobilisons nos consultants, ingénieurs et chefs de projets pour proposer une expertise technique et commerciale via la conception et la création de sites internet et la mise en œuvre d'un référencement performant afin d'offrir à nos partenaires une visibilité optimale. </p>
+              <p class="start">Bénéficiez de formations personnalisées pour vos employés aux techniques bureautiques et informatiques pour un profit technique et temporel optimal. </p>
+              <p>Votre activité se développe, vos besoins aussi. Nos conseils sont évolutifs et vous accompagneront tout au long de la vie de votre entreprise. N'hésitez pas à prendre contact avec notre service commercial afin d'obtenir des compléments d'informations.</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div id="installation" class="installation section text-content no-background with-picture">
+            <div>
+              <picture>
+                <source srcset="assets/installation.webp" type="image/webp">
+                <source srcset="assets/installation.jpg" type="image/jpeg"> 
+                <img class="full-pic" src="assets/installation.jpg" alt="Installation">
+              </picture>
+            </div>
+            <div class="pad-thin">
+              <h2>Installation</h2>
+              <p>La base de l'informatique commence par une bonne installation de systèmes professionnels et performants à portée de main.</p> 
+              <p>Bénéficiez des derniers systèmes d'exploitation du marché, mais également de logiciels de bureautique professionnelle adaptés à vos besoins. Profitez de l'installation, l'optimisation, le conseil, la formation et la sécurisation dédiée à votre activité.</p> 
+              <p>À travers une veille technologique permanente et un système de maintenance bimensuelle, Persin Conseil propose à votre entreprise d'être constamment sécurisée face à toutes menaces potentielles: pannes, virus, perte de données, ralentissements réseau.</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="parallax-wrap">
+            <div id="formation" class="formation section parallax text-content white image-format webp">
+              <h2>Formation</h2>
+              <p>Chaque opérateur n'ayant ni les mêmes besoins ni un niveau similaires, nos consultants vous proposent des formations informatiques sur site adaptées à votre demande dont le contenu et la durée sont totalement flexibles. </p>
+              <p>Nous offrons des formations informatiques à la carte qui s'adressent aux entrepreneurs, aux cadres et aux employés. Leur contenu et leur durée sont adaptés aux besoins de chaque acteur de l'entreprise.</p>
+              <p>Notre transfert de compétences s'étend de l'initiation de l'outil informatique à l'utilisation de tous logiciels bureautique. Maîtrisez les outils graphiques en vue de la conception et de la création des vecteurs de communication de l'entreprise en développant vos sites internet. </p>
+              <p class="start">Adoptez les réflexes de sécurisation de vos réseaux et de vos données aux moyens d'une initiation aux contrôles récurrents. </p>
+              <p class="start">Consultez-nous sans engagement afin de définir l'offre de formation ponctuelle ou forfaitaire qui correspond le plus à vos attentes.</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div id="assistance" class="assistance section text-content no-background">
+            <div class="with-picture">
+              <div>
+                <picture>
+                  <source srcset="assets/assistance.webp" type="image/webp">
+                  <source srcset="assets/assistance.jpg" type="image/jpeg"> 
+                  <img class="full-pic" src="assets/assistance.jpg" alt="Assistance">
+                </picture>
+              </div>
+              <div class="full-width">
+                <h2>Assistance</h2>
+                <p>Nos prestataires vous offrent une disponibilité totale sur site 7j/7 et se déplacent gratuitement.</p>
+                <p>Sur votre lieu professionnel ou personnel notre équipe se déplace au plus près de vous. Nous vous assistons également à distance à travers un système de partage d'écran pour remédier à tout problème et à toute interrogation que vous pourriez rencontrer. </p>
+                <p>Nous restons à votre disposition toute la semaine ainsi que les jours fériés pour vous guider et vous assister au quotidien. Une difficulté ou une simple question, nos conseillers répondent professionnellement et à tout instant à vos attentes.</p>
+              </div>
+            </div>
+            <div class="full-width">
+              <p>Suite à chaque intervention, nos équipes établissent votre fiche client personnelle regroupant les différentes prestations effectuées, afin de pouvoir vous répondre en parfaite connaissance de votre situation et des différentes installations dont vous bénéficiez. </p>
+              <p>Nos équipes sont prêtes à vous assister en urgence et vous proposent une intervention dans les 3 heures maximum sur un simple demande de votre part. </p>
+              <p>Ainsi, nous résolvons avec rapidité et efficacité, l'ensemble de vos problématiques.</p>
+            </div>
+          </div>
+        </section>
+    </persin-app>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-74959315-1', 'persin.fr'); ga('send', 'pageview'); 
     </script>
