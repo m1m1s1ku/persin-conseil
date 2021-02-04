@@ -5,12 +5,6 @@ import { TextField } from '@material/mwc-textfield';
 import { Dialog } from '@material/mwc-dialog';
 import { Button } from '@material/mwc-button';
 
-// Offline plugin for production builds
-if(location.host.indexOf('localhost') === -1){
-	const OfflinePluginRuntime = require('offline-plugin/runtime');
-	OfflinePluginRuntime.install();
-}
-
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 import '@material/mwc-dialog';

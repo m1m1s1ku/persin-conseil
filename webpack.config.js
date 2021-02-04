@@ -1,12 +1,12 @@
 'use strict';
 
 const { resolve, join } = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const OfflinePlugin = require('offline-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
 
@@ -28,18 +28,15 @@ const assets = [
 const polyfills = [
   {
     from: resolve(`${webcomponentsjs}/webcomponents-*.js`),
-    to: join(OUTPUT_PATH, 'vendor'),
-    flatten: true
+    to: join(OUTPUT_PATH, 'vendor', '[name].[ext]')
   },
   {
     from: resolve(`${webcomponentsjs}/bundles/*.js`),
-    to: join(OUTPUT_PATH, 'vendor', 'bundles'),
-    flatten: true
+    to: join(OUTPUT_PATH, 'vendor', 'bundles', '[name].[ext]')
   },
   {
     from: resolve(`${webcomponentsjs}/custom-elements-es5-adapter.js`),
-    to: join(OUTPUT_PATH, 'vendor'),
-    flatten: true
+    to: join(OUTPUT_PATH, 'vendor', '[name].[ext]')
   }
 ];
 
@@ -63,7 +60,7 @@ const commonConfig = merge([
       ]
     },
     plugins: [
-      new ManifestPlugin(),
+      new WebpackManifestPlugin(),
       new WebpackPwaManifest({
         filename: 'app-manifest.json',
         theme_color: '#42BB74',
@@ -113,7 +110,7 @@ const developmentConfig = merge([
   {
     devtool: 'cheap-module-source-map',
     plugins: [
-      new CopyWebpackPlugin(polyfills),
+      new CopyWebpackPlugin({patterns: polyfills}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE
       })
@@ -134,7 +131,7 @@ const productionConfig = merge([
   {
     plugins: [
       new CleanWebpackPlugin(),
-      new CopyWebpackPlugin([...polyfills, ...assets], {}),
+      new CopyWebpackPlugin({patterns: [...polyfills, ...assets]}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE,
         minify: {
@@ -144,18 +141,10 @@ const productionConfig = merge([
           minifyJS: true
         }
       }),
-      new OfflinePlugin(
-        {
-          appShell: '/index.html',
-          responseStrategy: 'cache-first',
-          relativePaths: true,
-          ServiceWorker: {
-            output: 'service-worker.js'
-          },
-          publicPath: 'https://www.persin.fr',
-          excludes: ['**/*.map', '**/*.gz', '**/*.d.ts']
-        }
-      ),
+      new GenerateSW({
+        swDest: 'service-worker.js',
+        exclude: ['**/*.map', '**/*.gz', '**/*.d.ts'],
+      }),
       new ImageminWebpWebpackPlugin({
         config: [{
           test: /\.(jpe?g|png)$/,
@@ -170,7 +159,7 @@ const productionConfig = merge([
 ]);
 
 module.exports = mode => {
-  if (mode === 'production') {
+  if (mode.production) {
     return merge(commonConfig, productionConfig, { mode });
   }
 
