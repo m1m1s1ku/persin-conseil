@@ -591,7 +591,7 @@ export class PersinApp extends LitElement {
 
 			// Send through Gmail
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
+			xhr.open('POST', 'https://corsunblock.herokuapp.com/https://script.google.com/macros/s/AKfycbzmQXkAZxnqeXv4eA7ib1QlgikrTXr-0BmupizQjowFYMIibvI/exec');
 			xhr.onreadystatechange = () => {
 				if (xhr.status === 200) {
 					this._form.classList.add('sended');
