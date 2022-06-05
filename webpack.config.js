@@ -99,6 +99,11 @@ const commonConfig = merge([
             src: resolve('./src/assets/icons/icon-96-96.png'),
             sizes: "96x96",
             type: "image/png"
+          },
+          {
+            src: resolve('./src/assets/icons/icon-16-16.png'),
+            sizes: "16x16",
+            type: "image/png"
           }
         ]
       })

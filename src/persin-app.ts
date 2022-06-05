@@ -1,4 +1,5 @@
-import { LitElement, html, property, queryAll, query, customElement } from 'lit-element';
+import { LitElement, html } from 'lit';
+import { property, queryAll, query, customElement } from 'lit/decorators.js';
 import { supportsWebp } from './images';
 
 import { TextField } from '@material/mwc-textfield';
