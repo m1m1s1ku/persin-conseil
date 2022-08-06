@@ -9,6 +9,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const {GenerateSW} = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const ENV = process.argv.find(arg => arg.includes('production'))
   ? 'production'
@@ -54,9 +55,12 @@ const commonConfig = merge([
       rules: [
         {
           test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
-        }
+          loader: 'esbuild-loader',
+          options: {
+            loader: 'ts',
+            target: 'chrome80'
+          }
+        },
       ]
     },
     plugins: [
@@ -118,7 +122,8 @@ const developmentConfig = merge([
       new CopyWebpackPlugin({patterns: polyfills}),
       new HtmlWebpackPlugin({
         template: INDEX_TEMPLATE
-      })
+      }),
+      new ESLintPlugin()
     ],
 
     devServer: {
