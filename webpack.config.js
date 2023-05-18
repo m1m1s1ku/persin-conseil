@@ -8,7 +8,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const {GenerateSW} = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest')
-const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const ENV = process.argv.find(arg => arg.includes('production'))
@@ -156,15 +155,6 @@ const productionConfig = merge([
         swDest: 'service-worker.js',
         exclude: ['**/*.map', '**/*.gz', '**/*.d.ts'],
       }),
-      new ImageminWebpWebpackPlugin({
-        config: [{
-          test: /\.(jpe?g|png)$/,
-          options: {
-            quality:  50
-          }
-        }],
-        detailedLogs: true
-      })
     ]
   }
 ]);
