@@ -10,7 +10,7 @@
 * **State:** Published | Maintenance
 * **Production:** [https://persin.fr](https://persin.fr/)
 * **GitHub:** [https://github.com/ghostfly/persin-conseil](https://github.com/ghostfly/persin-conseil)
-* **Point People:** [@ghostfly](https://github.com/m1m1s1ku)
+* **Point People:** [@m1m1s1ku](https://github.com/m1m1s1ku)
 
 ## License
 
