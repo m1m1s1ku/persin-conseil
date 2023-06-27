@@ -1,5 +1,8 @@
 # Persin Conseil
 
+![Status](https://status.mimisiku.network/api/badge/23/status)
+![Uptime](https://status.mimisiku.network/api/badge/23/uptime)
+
 [Website](https://persin.fr)
 
 ## Meta
